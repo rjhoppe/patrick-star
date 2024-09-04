@@ -223,4 +223,26 @@ random_locations = [
     "Golan Heights",
     "West Bank",
     "Macau",
+    "Tripoli",
+    "Kiev",
+    "Crimea",
+    "Donetsk",
+    "Montana",
+    "Vermont",
+    "Omaha",
+    "Solomon Islands",
+    "Venice Beach",
+]
+
+show_locations = [
+    "Brazil",
+    "Omaha",
+    "Venezuela",
+    "Cuba",
+    "Oklahoma City",
+    "Canton",
+    "New Jersey",
+    "Manhattan",
+    "Argentina",
+    "Chile",
 ]

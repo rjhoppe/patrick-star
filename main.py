@@ -1,13 +1,21 @@
-import random
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
 import logging
 import os
+import random
+import time
+
 from dotenv import load_dotenv
+from faker import Faker
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from data import *
 
+fake = Faker()
 load_dotenv()
 
 class Idiot:
@@ -15,6 +23,7 @@ class Idiot:
         self.first_name = None
         self.last_name = None
         self.full_name = None
+        self.email = None
         self.intro = None
         self.random_include_name = random.randint(1, 2)
         self.random_include_greeting = random.randint(1, 4)
@@ -28,14 +37,17 @@ class Idiot:
             self.include_greeting = False
 
     def gen_name(self):
-        if self.include_name:
-            self.first_name = random.choice(first_names)
-            self.last_name = random.choice(last_names)
-            self.full_name = self.first_name + " " + self.last_name
+        self.first_name = random.choice(first_names)
+        self.last_name = random.choice(last_names)
+        self.full_name = self.first_name + " " + self.last_name
+
+    def gen_email(self):
+        possible_email_domains = ['@gmail', '@yahoo', '@hotmail', '@aol', '@msn']
+        pass
 
     def gen_intro(self):
         random_intro = random.randint(1, 10)
-        if self.full_name is not None:
+        if self.include_name:
             match random_intro:
                 case 1:
                     self.intro = f"Hello my name is {self.full_name}. "
@@ -92,7 +104,7 @@ class Idiot:
                     self.intro = "hello "
 
     def gen_query(self):
-        random_query = random.randint(1, 25)
+        random_query = random.randint(1, 34)
         match random_query:
             case 1:
                 random_shoe_link = random.choice(weird_shoes_urls)
@@ -145,9 +157,9 @@ class Idiot:
                 random_animal = random.choice(random_animals)
                 self.query = f"do you have any shoes made out of {random_animal}? And can you do it in {random_sports_team} colors ???"
             case 17:
-                self.query = "Do these shoes come with bluetooth?"
+                self.query = "do these shoes come with bluetooth?"
             case 18:
-                self.query = "Are these shoes self cleaning? Do they come with a self cleaning option?"
+                self.query = "are these shoes self cleaning? Do they come with a self cleaning option?"
             case 19:
                 self.query = "can you make shoes that change color based on my mood"
             case 20:
@@ -159,52 +171,95 @@ class Idiot:
                 self.query = f"does this come in mens? {shoe_url}"
             case 22:
                 currency = random.choice(weird_currencies)
-                self.query = f"Do you accept {currency} as payment?"
+                self.query = f"do you accept {currency} as payment?"
             case 23:
-                self.query = "Do you sell golf shoes?"
+                self.query = "do you sell golf shoes?"
             case 24:
                 self.query = "do you sell any shoes that glow in the dark?"
             case 25:
                 random_location = random.choice(random_locations)
                 self.query = f"do you ship to {random_location}?"
+            case 26:
+                self.query = "why are my shoes so sticky?"
+            case 27:
+                self.query = "are the tassles on the shoe detachable? thx"
+            case 28:
+                self.query = (
+                    "do you offer a veteran discount for veterans from other countries?"
+                )
+            case 29:
+                self.query = "do you offer a student discount?"
+            case 30:
+                self.query = "do you offer a senior discount?"
+            case 31:
+                random_location = random.choice(show_locations)
+                self.query = f"could you come do a trunk show in {random_location}?"
+            case 32:
+                self.query = 'What does the "J" stand for?'
+            case 33:
+                self.query = "are you product halal?"
+            case 34:
+                self.query = "are your shoes kosher?"
         return self.query
 
 
 def submit_annyoing_msg(query):
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")
+    # Uncomment these out when ready to roll
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--window-size=1920,1080")
 
     try:
-        driver = webdriver.Chrome(service=Service(), options=chrome_options)
+        driver = webdriver.Chrome(options=chrome_options)
+        # driver = webdriver.Chrome(service=Service(), options=chrome_options)
         driver.get(os.getenv("URL"))
-        driver.implicitly_wait(0.5)
+        time.sleep(3)
 
-        # driver.save_screenshot("screenshot.png")
-        # Cant find chat button using Selenium... hmm...
-        chat_button = driver.find_element(
-            By.XPATH, "//path[@fill-rule='evenodd' and @clip-rule='evenodd']"
+        try:
+            x_button = driver.find_element(
+                By.XPATH, "/html/body/div[11]/div/div[2]/div/div/div/div/div/button"
+            )
+            x_button.click()
+            time.sleep(3)
+        except Exception as e:
+            print(e)
+
+        chat_btn = driver.find_element(
+            By.XPATH, "/html/body/div[8]/inbox-online-store-chat[1]"
         )
-        chat_button.click()
-        driver.implicitly_wait(0.5)
+        chat_btn.click()
+        time.sleep(3)
 
-        chat_area = driver.find_element(
-            By.XPATH, '//textarea[@aria-label="Message us"]'
+        chat_textarea = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const textArea = shadowRoot.querySelector('textarea')
+            return textArea
+            """
         )
-        print(chat_area)
-        chat_area.clear()
-        driver.implicitly_wait(0.5)
-        chat_area.send_keys(query)
-        driver.implicitly_wait(0.5)
 
-        print("its working!")
-        # submit_btn = driver.find_element(By.XPATH, '//button[@data-spec="message-submit"]')
-        # submit_btn.click()
+        chat_textarea.click()
+        chat_textarea.clear()
+        time.sleep(1)
+        chat_textarea.send_keys(query)
+        time.sleep(3)
+        chat_submit_btn = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const submitBtn = shadowRoot.querySelector('button')
+            return submitBtn
+            """
+        )
 
+        chat_submit_btn.click()
+        time.sleep(2)
+        print("Job complete")
         driver.quit()
 
     except Exception as e:
@@ -214,8 +269,8 @@ def submit_annyoing_msg(query):
 def time_to_annoy():
     PatrickStar = Idiot()
     to_lower_rand = random.randint(1, 3)
-    if PatrickStar.include_name:
-        PatrickStar.gen_name()
+    PatrickStar.gen_name()
+    PatrickStar.gen_email()
 
     if PatrickStar.include_greeting:
         PatrickStar.gen_intro()
