@@ -1,10 +1,9 @@
-import logging
+import logging  # Remove this after testing
 import os
 import random
 import time
 
 from dotenv import load_dotenv
-from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -15,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from data import *
 
-fake = Faker()
 load_dotenv()
 
 class Idiot:
@@ -41,6 +39,7 @@ class Idiot:
         self.last_name = random.choice(last_names)
         self.full_name = self.first_name + " " + self.last_name
 
+    # Todo
     def gen_email(self):
         possible_email_domains = ['@gmail', '@yahoo', '@hotmail', '@aol', '@msn']
         pass
@@ -259,9 +258,54 @@ def submit_annyoing_msg(query):
 
         chat_submit_btn.click()
         time.sleep(2)
+
+        # Fill in the templated info below
+        first_name_input = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const textArea = shadowRoot.querySelector('textarea')
+            return textArea
+            """
+        )
+
+        last_name_input = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const textArea = shadowRoot.querySelector('textarea')
+            return textArea
+            """
+        )
+
+
+        email_input = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const textArea = shadowRoot.querySelector('textarea')
+            return textArea
+            """
+        )
+
+        contact_submit_btn = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const submitBtn = shadowRoot.querySelector('button')
+            return submitBtn
+            """
+        )
+
+        contact_submit_btn.click()
+        time.sleep(2)
+
+
+
         print("Job complete")
         driver.quit()
 
+    # Todo - make more robust
     except Exception as e:
         print(f"Error: {e}")
 
