@@ -14,7 +14,7 @@ RUN : \
     && apt-get install -y ./google-chrome-stable_current_amd64.deb \
     && rm google-chrome-stable_current_amd64.deb \
     #
-    && apt-get clean \
+    && apt clean \
     # Fully purges the lists directory - might be considered unnecessarily aggressive
     && rm -rf /var/lib/apt/lists/* \
     && :

@@ -52,6 +52,8 @@ last_names = [
 
 time_measurements = [
     "nights",
+    "yesteryears",
+    "harvest moons",
     "years",
     "weeks",
     "months",
@@ -114,7 +116,6 @@ random_animals = [
     "racoon",
     "meerkat",
     "capuchin",
-    "squirrel monkey",
     "sloth",
     "sea turtle",
     "baboon",
@@ -232,10 +233,13 @@ random_locations = [
     "Omaha",
     "Solomon Islands",
     "Venice Beach",
+    "Manhattan",
 ]
 
 show_locations = [
     "Brazil",
+    "Falklands",
+    "Rhodesia",
     "Omaha",
     "Venezuela",
     "Cuba",
