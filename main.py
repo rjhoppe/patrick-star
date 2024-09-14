@@ -4,7 +4,6 @@ import random
 import time
 
 from dotenv import load_dotenv
-from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -15,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from data import *
 
-fake = Faker()
 load_dotenv()
 
 class Idiot:
@@ -41,9 +39,23 @@ class Idiot:
         self.last_name = random.choice(last_names)
         self.full_name = self.first_name + " " + self.last_name
 
+    # Todo
+    # Make sure email does not exist
     def gen_email(self):
-        possible_email_domains = ['@gmail', '@yahoo', '@hotmail', '@aol', '@msn']
-        pass
+        possible_email_domains = ['@gmail.com', '@yahoo.com', '@aol.com', '@msn,com']
+        first_outer = random.randint(1, len(self.first_name) -1)
+        last_outer = random.randint(1, len(self.last_name) -1)
+        first_name_prefix = self.first_name[0: first_outer]
+        last_name_prefix = self.last_name[0: last_outer]
+        domain = random.choice(possible_email_domains)
+        number_prefix = None
+        has_number_prefix = random.randint(1, 2)
+
+        if has_number_prefix == 2:
+            number_prefix = random.randint(0, 1000)
+            self.email = first_name_prefix + last_name_prefix + number_prefix + domain
+        else:
+            self.email = first_name_prefix + last_name_prefix + domain
 
     def gen_intro(self):
         random_intro = random.randint(1, 10)
@@ -73,6 +85,10 @@ class Idiot:
                     self.intro = f"{self.full_name} - "
                 case 12:
                     self.intro = f"Hi {self.first_name} here "
+                case 13:
+                    self.intro = "Hey, hope you are well "
+                case 14: 
+                    self.intro = "Hi fellas, big fan of your guys' products "
 
         else:
             match random_intro:
@@ -102,6 +118,10 @@ class Idiot:
                     self.intro = "hey "
                 case 12:
                     self.intro = "hello "
+                case 13:
+                    self.intro = "greetings "
+                case 14:
+                    self.intro = "felicitations "
 
     def gen_query(self):
         random_query = random.randint(1, 34)
@@ -182,7 +202,7 @@ class Idiot:
             case 26:
                 self.query = "why are my shoes so sticky?"
             case 27:
-                self.query = "are the tassles on the shoe detachable? thx"
+                self.query = "are the tassels on the shoe detachable? thx"
             case 28:
                 self.query = (
                     "do you offer a veteran discount for veterans from other countries?"
@@ -197,13 +217,23 @@ class Idiot:
             case 32:
                 self.query = 'What does the "J" stand for?'
             case 33:
-                self.query = "are you product halal?"
+                self.query = "are your products halal?"
             case 34:
                 self.query = "are your shoes kosher?"
+            case 35:
+                self.query = "do you sell any shoes under $50 thx"
+            case 36:
+                self.query = "I have been looking for shoe sandpaper and was wondering if you had any"
+            case 37:
+                self.query = "r u going to open another store ??"    
         return self.query
 
+# Todo
+# Use this to refactor redundant text
+def submit_textarea():
+    pass
 
-def submit_annyoing_msg(query):
+def submit_annyoing_msg(query, first_name, last_name, email):
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
     # Uncomment these out when ready to roll
@@ -259,6 +289,47 @@ def submit_annyoing_msg(query):
 
         chat_submit_btn.click()
         time.sleep(2)
+
+        # Add final form field options
+        # First Name
+        contact_first_name = driver.execute_script(
+            """
+            """
+        )
+        contact_first_name.click()
+        contact_first_name.clear()
+        time.sleep(1)
+        contact_first_name.send_keys(first_name)
+        time.sleep(3)
+
+        # Last Name
+        contact_last_name = driver.execute_script(
+            """
+            """
+        )
+        contact_last_name.click()
+        contact_last_name.clear()
+        time.sleep(1)
+        contact_last_name.send_keys(last_name)
+        time.sleep(3)
+
+        # Email
+        contact_email = driver.execute_script(
+            """
+            """
+        )
+        contact_email.click()
+        contact_email.clear()
+        time.sleep(1)
+        contact_email.send_keys(email)
+        time.sleep(3)
+        contact_submit_btn = driver.execute_script(
+            """
+            """
+        )
+
+        contact_submit_btn.click()
+        time.sleep(2)
         print("Job complete")
         driver.quit()
 
@@ -283,7 +354,7 @@ def time_to_annoy():
         query.lower()
 
     print(query)
-    submit_annyoing_msg(query)
+    submit_annyoing_msg(query, PatrickStar.first_name, PatrickStar.last_name, PatrickStar.email)
 
 
 if __name__ == "__main__":
