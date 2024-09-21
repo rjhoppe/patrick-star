@@ -37,13 +37,13 @@ class Idiot:
         self.full_name = self.first_name + " " + self.last_name
 
     def gen_email(self):
-        possible_email_domains = ["@gmai1", "@yahooo", "@hotmai1", "@ao1"]
         first_stop = random.randint(2, len(self.first_name) - 1)
         first_part = self.first_name[2:first_stop]
         last_stop = random.randint(2, len(self.last_name) - 1)
         last_part = self.last_name[2:last_stop]
         connectors = ["-", "_", ".", ""]
         random_conn = random.choice(connectors)
+        possible_email_domains = ["gmai1", "yahooo", "hotmai1", "ao1"]
         random_email_domain = random.choice(possible_email_domains)
         random_num = ""
         has_random_int = random.randint(1, 3)
