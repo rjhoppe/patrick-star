@@ -6,15 +6,12 @@ import time
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from data import *
 
 load_dotenv()
+
 
 class Idiot:
     def __init__(self):
@@ -39,10 +36,38 @@ class Idiot:
         self.last_name = random.choice(last_names)
         self.full_name = self.first_name + " " + self.last_name
 
-    # Todo
     def gen_email(self):
-        possible_email_domains = ['@gmail', '@yahoo', '@hotmail', '@aol', '@msn']
-        pass
+        possible_email_domains = ["@gmai1", "@yahooo", "@hotmai1", "@ao1"]
+        first_stop = random.randint(2, len(self.first_name) - 1)
+        first_part = self.first_name[2:first_stop]
+        last_stop = random.randint(2, len(self.last_name) - 1)
+        last_part = self.last_name[2:last_stop]
+        connectors = ["-", "_", ".", ""]
+        random_conn = random.choice(connectors)
+        random_email_domain = random.choice(possible_email_domains)
+        random_num = ""
+        has_random_int = random.randint(1, 3)
+        if has_random_int > 1:
+            random_num = str(random.randint(1, 1000))
+        if random_num != 1:
+            self.email = (
+                first_part
+                + random_conn
+                + last_part
+                + random_num
+                + "@"
+                + random_email_domain
+                + ".com"
+            )
+        else:
+            self.email = (
+                first_part
+                + random_conn
+                + last_part
+                + "@"
+                + random_email_domain
+                + ".com"
+            )
 
     def gen_intro(self):
         random_intro = random.randint(1, 10)
@@ -202,7 +227,7 @@ class Idiot:
         return self.query
 
 
-def submit_annyoing_msg(query):
+def submit_annyoing_msg(query, Idiot):
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
     # Uncomment these out when ready to roll
@@ -216,22 +241,28 @@ def submit_annyoing_msg(query):
         driver = webdriver.Chrome(options=chrome_options)
         # driver = webdriver.Chrome(service=Service(), options=chrome_options)
         driver.get(os.getenv("URL"))
-        time.sleep(3)
+        time.sleep(6)
 
         try:
             x_button = driver.find_element(
-                By.XPATH, "/html/body/div[11]/div/div[2]/div/div/div/div/div/button"
+                By.XPATH, "/html/body/div[12]/div/div[2]/div/div/div/div/div/button"
             )
             x_button.click()
             time.sleep(3)
         except Exception as e:
             print(e)
 
-        chat_btn = driver.find_element(
-            By.XPATH, "/html/body/div[8]/inbox-online-store-chat[1]"
+        chat_btn = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const chatBtn = shadowRoot.querySelectorAll('[aria-label="Chat window"]')[0]
+            return chatBtn
+            """
         )
+
         chat_btn.click()
-        time.sleep(3)
+        time.sleep(2)
 
         chat_textarea = driver.execute_script(
             """
@@ -246,7 +277,7 @@ def submit_annyoing_msg(query):
         chat_textarea.clear()
         time.sleep(1)
         chat_textarea.send_keys(query)
-        time.sleep(3)
+        time.sleep(1)
         chat_submit_btn = driver.execute_script(
             """
             const parent = document.getElementById('ShopifyChat')
@@ -264,43 +295,61 @@ def submit_annyoing_msg(query):
             """
             const parent = document.getElementById('ShopifyChat')
             const shadowRoot = parent.shadowRoot
-            const textArea = shadowRoot.querySelector('textarea')
-            return textArea
+            const inputs = shadowRoot.querySelectorAll('input')
+            const firstName = inputs[0]
+            return firstName
             """
         )
+
+        first_name_input.click()
+        first_name_input.clear()
+        time.sleep(1)
+        first_name_input.send_keys(Idiot.first_name)
+        time.sleep(1)
 
         last_name_input = driver.execute_script(
             """
             const parent = document.getElementById('ShopifyChat')
             const shadowRoot = parent.shadowRoot
-            const textArea = shadowRoot.querySelector('textarea')
-            return textArea
+            const inputs = shadowRoot.querySelectorAll('input')
+            const lastName = inputs[1]
+            return lastName
             """
         )
 
+        last_name_input.click()
+        last_name_input.clear()
+        time.sleep(1)
+        last_name_input.send_keys(Idiot.last_name)
+        time.sleep(1)
 
         email_input = driver.execute_script(
             """
             const parent = document.getElementById('ShopifyChat')
             const shadowRoot = parent.shadowRoot
-            const textArea = shadowRoot.querySelector('textarea')
-            return textArea
+            const inputs = shadowRoot.querySelectorAll('input')
+            const email = inputs[2]
+            return email
             """
         )
 
-        contact_submit_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button')
-            return submitBtn
-            """
-        )
+        email_input.click()
+        email_input.clear()
+        time.sleep(1)
+        email_input.send_keys(Idiot.email)
+        time.sleep(1)
 
-        contact_submit_btn.click()
-        time.sleep(2)
+        # contact_submit_btn = driver.execute_script(
+        #     """
+        #     const parent = document.getElementById('ShopifyChat')
+        #     const shadowRoot = parent.shadowRoot
+        #     const submitBtn = shadowRoot.querySelector('button')
+        #     return submitBtn
+        #     """
+        # )
 
-
+        # contact_submit_btn.click()
+        # time.sleep(2)
 
         print("Job complete")
         driver.quit()
@@ -326,8 +375,7 @@ def time_to_annoy():
     if to_lower_rand == 1:
         query.lower()
 
-    print(query)
-    submit_annyoing_msg(query)
+    submit_annyoing_msg(query, PatrickStar)
 
 
 if __name__ == "__main__":
