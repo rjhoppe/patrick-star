@@ -1,3 +1,9 @@
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 first_names = [
     "Rey",
     "Sleve",
@@ -202,11 +208,11 @@ weird_currencies = [
 ]
 
 store_links = [
-    "https://www.jfitzpatrickfootwear.com/products/crescent-sangria-calf",
-    "https://www.jfitzpatrickfootwear.com/products/alder-black-calf",
-    "https://www.jfitzpatrickfootwear.com/products/alki-black-calf",
-    "https://www.jfitzpatrickfootwear.com/products/whatcom-black-calf",
-    "https://www.jfitzpatrickfootwear.com/products/fremont-black-marble-patina",
+    os.getenv("STORE_PAGE1"),
+    os.getenv("STORE_PAGE2"),
+    os.getenv("STORE_PAGE3"),
+    os.getenv("STORE_PAGE4"),
+    os.getenv("STORE_PAGE5"),
 ]
 
 random_locations = [

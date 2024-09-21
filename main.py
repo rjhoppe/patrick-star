@@ -1,4 +1,4 @@
-import logging
+import logging  # Remove this after testing
 import os
 import random
 import time
@@ -6,15 +6,12 @@ import time
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from data import *
 
 load_dotenv()
+
 
 class Idiot:
     def __init__(self):
@@ -39,23 +36,38 @@ class Idiot:
         self.last_name = random.choice(last_names)
         self.full_name = self.first_name + " " + self.last_name
 
-    # Todo
-    # Make sure email does not exist
     def gen_email(self):
-        possible_email_domains = ['@gmail.com', '@yahoo.com', '@aol.com', '@msn,com']
-        first_outer = random.randint(1, len(self.first_name) -1)
-        last_outer = random.randint(1, len(self.last_name) -1)
-        first_name_prefix = self.first_name[0: first_outer]
-        last_name_prefix = self.last_name[0: last_outer]
-        domain = random.choice(possible_email_domains)
-        number_prefix = None
-        has_number_prefix = random.randint(1, 2)
-
-        if has_number_prefix == 2:
-            number_prefix = random.randint(0, 1000)
-            self.email = first_name_prefix + last_name_prefix + number_prefix + domain
+        possible_email_domains = ["@gmai1", "@yahooo", "@hotmai1", "@ao1"]
+        first_stop = random.randint(2, len(self.first_name) - 1)
+        first_part = self.first_name[2:first_stop]
+        last_stop = random.randint(2, len(self.last_name) - 1)
+        last_part = self.last_name[2:last_stop]
+        connectors = ["-", "_", ".", ""]
+        random_conn = random.choice(connectors)
+        random_email_domain = random.choice(possible_email_domains)
+        random_num = ""
+        has_random_int = random.randint(1, 3)
+        if has_random_int > 1:
+            random_num = str(random.randint(1, 1000))
+        if random_num != 1:
+            self.email = (
+                first_part
+                + random_conn
+                + last_part
+                + random_num
+                + "@"
+                + random_email_domain
+                + ".com"
+            )
         else:
-            self.email = first_name_prefix + last_name_prefix + domain
+            self.email = (
+                first_part
+                + random_conn
+                + last_part
+                + "@"
+                + random_email_domain
+                + ".com"
+            )
 
     def gen_intro(self):
         random_intro = random.randint(1, 10)
@@ -85,10 +97,6 @@ class Idiot:
                     self.intro = f"{self.full_name} - "
                 case 12:
                     self.intro = f"Hi {self.first_name} here "
-                case 13:
-                    self.intro = "Hey, hope you are well "
-                case 14: 
-                    self.intro = "Hi fellas, big fan of your guys' products "
 
         else:
             match random_intro:
@@ -118,10 +126,6 @@ class Idiot:
                     self.intro = "hey "
                 case 12:
                     self.intro = "hello "
-                case 13:
-                    self.intro = "greetings "
-                case 14:
-                    self.intro = "felicitations "
 
     def gen_query(self):
         random_query = random.randint(1, 34)
@@ -202,7 +206,7 @@ class Idiot:
             case 26:
                 self.query = "why are my shoes so sticky?"
             case 27:
-                self.query = "are the tassels on the shoe detachable? thx"
+                self.query = "are the tassles on the shoe detachable? thx"
             case 28:
                 self.query = (
                     "do you offer a veteran discount for veterans from other countries?"
@@ -217,23 +221,13 @@ class Idiot:
             case 32:
                 self.query = 'What does the "J" stand for?'
             case 33:
-                self.query = "are your products halal?"
+                self.query = "are you product halal?"
             case 34:
                 self.query = "are your shoes kosher?"
-            case 35:
-                self.query = "do you sell any shoes under $50 thx"
-            case 36:
-                self.query = "I have been looking for shoe sandpaper and was wondering if you had any"
-            case 37:
-                self.query = "r u going to open another store ??"    
         return self.query
 
-# Todo
-# Use this to refactor redundant text
-def submit_textarea():
-    pass
 
-def submit_annyoing_msg(query, first_name, last_name, email):
+def submit_annyoing_msg(query, Idiot):
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
     # Uncomment these out when ready to roll
@@ -247,22 +241,28 @@ def submit_annyoing_msg(query, first_name, last_name, email):
         driver = webdriver.Chrome(options=chrome_options)
         # driver = webdriver.Chrome(service=Service(), options=chrome_options)
         driver.get(os.getenv("URL"))
-        time.sleep(3)
+        time.sleep(6)
 
         try:
             x_button = driver.find_element(
-                By.XPATH, "/html/body/div[11]/div/div[2]/div/div/div/div/div/button"
+                By.XPATH, "/html/body/div[12]/div/div[2]/div/div/div/div/div/button"
             )
             x_button.click()
             time.sleep(3)
         except Exception as e:
             print(e)
 
-        chat_btn = driver.find_element(
-            By.XPATH, "/html/body/div[8]/inbox-online-store-chat[1]"
+        chat_btn = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const chatBtn = shadowRoot.querySelectorAll('[aria-label="Chat window"]')[0]
+            return chatBtn
+            """
         )
+
         chat_btn.click()
-        time.sleep(3)
+        time.sleep(2)
 
         chat_textarea = driver.execute_script(
             """
@@ -277,7 +277,7 @@ def submit_annyoing_msg(query, first_name, last_name, email):
         chat_textarea.clear()
         time.sleep(1)
         chat_textarea.send_keys(query)
-        time.sleep(3)
+        time.sleep(1)
         chat_submit_btn = driver.execute_script(
             """
             const parent = document.getElementById('ShopifyChat')
@@ -290,49 +290,71 @@ def submit_annyoing_msg(query, first_name, last_name, email):
         chat_submit_btn.click()
         time.sleep(2)
 
-        # Add final form field options
-        # First Name
-        contact_first_name = driver.execute_script(
+        # Fill in the templated info below
+        first_name_input = driver.execute_script(
             """
-            """
-        )
-        contact_first_name.click()
-        contact_first_name.clear()
-        time.sleep(1)
-        contact_first_name.send_keys(first_name)
-        time.sleep(3)
-
-        # Last Name
-        contact_last_name = driver.execute_script(
-            """
-            """
-        )
-        contact_last_name.click()
-        contact_last_name.clear()
-        time.sleep(1)
-        contact_last_name.send_keys(last_name)
-        time.sleep(3)
-
-        # Email
-        contact_email = driver.execute_script(
-            """
-            """
-        )
-        contact_email.click()
-        contact_email.clear()
-        time.sleep(1)
-        contact_email.send_keys(email)
-        time.sleep(3)
-        contact_submit_btn = driver.execute_script(
-            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const inputs = shadowRoot.querySelectorAll('input')
+            const firstName = inputs[0]
+            return firstName
             """
         )
 
-        contact_submit_btn.click()
-        time.sleep(2)
+        first_name_input.click()
+        first_name_input.clear()
+        time.sleep(1)
+        first_name_input.send_keys(Idiot.first_name)
+        time.sleep(1)
+
+        last_name_input = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const inputs = shadowRoot.querySelectorAll('input')
+            const lastName = inputs[1]
+            return lastName
+            """
+        )
+
+        last_name_input.click()
+        last_name_input.clear()
+        time.sleep(1)
+        last_name_input.send_keys(Idiot.last_name)
+        time.sleep(1)
+
+        email_input = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const inputs = shadowRoot.querySelectorAll('input')
+            const email = inputs[2]
+            return email
+            """
+        )
+
+        email_input.click()
+        email_input.clear()
+        time.sleep(1)
+        email_input.send_keys(Idiot.email)
+        time.sleep(1)
+
+        # contact_submit_btn = driver.execute_script(
+        #     """
+        #     const parent = document.getElementById('ShopifyChat')
+        #     const shadowRoot = parent.shadowRoot
+        #     const submitBtn = shadowRoot.querySelector('button')
+        #     return submitBtn
+        #     """
+        # )
+
+        # contact_submit_btn.click()
+        # time.sleep(2)
+
         print("Job complete")
         driver.quit()
 
+    # Todo - make more robust
     except Exception as e:
         print(f"Error: {e}")
 
@@ -353,8 +375,7 @@ def time_to_annoy():
     if to_lower_rand == 1:
         query.lower()
 
-    print(query)
-    submit_annyoing_msg(query, PatrickStar.first_name, PatrickStar.last_name, PatrickStar.email)
+    submit_annyoing_msg(query, PatrickStar)
 
 
 if __name__ == "__main__":

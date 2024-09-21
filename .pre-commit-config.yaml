@@ -11,12 +11,12 @@ repos:
       - id: check-merge-conflict
       - id: name-tests-test
       - id: requirements-txt-fixer
-  # Squelching this for now
-  # - repo: https://github.com/astral-sh/ruff-pre-commit
-  #   rev: v0.6.3
-  #   hooks:
-  #     - id: ruff
-  #     - id: ruff-format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.3
+    hooks:
+      - id: ruff
+      - id: ruff-format
+        exclude: data.py
   # Sort imports
   - repo: https://github.com/pycqa/isort
     rev: 5.13.2
