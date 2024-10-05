@@ -31,19 +31,19 @@ class Idiot:
         else:
             self.include_greeting = False
 
-    def gen_name(self):
+    def gen_name(self) -> str:
         self.first_name = random.choice(first_names)
         self.last_name = random.choice(last_names)
         self.full_name = self.first_name + " " + self.last_name
 
-    def gen_email(self):
+    def gen_email(self) -> str:
         first_stop = random.randint(2, len(self.first_name) - 1)
         first_part = self.first_name[2:first_stop]
         last_stop = random.randint(2, len(self.last_name) - 1)
         last_part = self.last_name[2:last_stop]
         connectors = ["-", "_", ".", ""]
         random_conn = random.choice(connectors)
-        possible_email_domains = ["gmai1", "yahooo", "hotmai1", "ao1"]
+        possible_email_domains = ["gmai1", "qmail", "yahooo", "hotmai1", "ao1"]
         random_email_domain = random.choice(possible_email_domains)
         random_num = ""
         has_random_int = random.randint(1, 3)
@@ -69,7 +69,7 @@ class Idiot:
                 + ".com"
             )
 
-    def gen_intro(self):
+    def gen_intro(self) -> str:
         random_intro = random.randint(1, 10)
         if self.include_name:
             match random_intro:
@@ -127,7 +127,7 @@ class Idiot:
                 case 12:
                     self.intro = "hello "
 
-    def gen_query(self):
+    def gen_query(self) -> str:
         random_query = random.randint(1, 34)
         match random_query:
             case 1:
@@ -227,7 +227,7 @@ class Idiot:
         return self.query
 
 
-def submit_annyoing_msg(query, Idiot):
+def submit_annyoing_msg(query: str) -> None:
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
     # Uncomment these out when ready to roll
@@ -243,14 +243,14 @@ def submit_annyoing_msg(query, Idiot):
         driver.get(os.getenv("URL"))
         time.sleep(6)
 
-        try:
-            x_button = driver.find_element(
-                By.XPATH, "/html/body/div[12]/div/div[2]/div/div/div/div/div/button"
-            )
-            x_button.click()
-            time.sleep(3)
-        except Exception as e:
-            print(e)
+        modal_element = driver.find_element(
+            By.CSS_SELECTOR, "div[aria-label='POPUP Form']"
+        )
+        x_btn = modal_element.find_element(
+            By.CSS_SELECTOR, "button[aria-label='Close dialog']"
+        )
+        x_btn.click()
+        time.sleep(3)
 
         chat_btn = driver.execute_script(
             """
@@ -260,7 +260,6 @@ def submit_annyoing_msg(query, Idiot):
             return chatBtn
             """
         )
-
         chat_btn.click()
         time.sleep(2)
 
@@ -339,27 +338,26 @@ def submit_annyoing_msg(query, Idiot):
         email_input.send_keys(Idiot.email)
         time.sleep(1)
 
-        # contact_submit_btn = driver.execute_script(
-        #     """
-        #     const parent = document.getElementById('ShopifyChat')
-        #     const shadowRoot = parent.shadowRoot
-        #     const submitBtn = shadowRoot.querySelector('button')
-        #     return submitBtn
-        #     """
-        # )
+        contact_submit_btn = driver.execute_script(
+            """
+            const parent = document.getElementById('ShopifyChat')
+            const shadowRoot = parent.shadowRoot
+            const submitBtn = shadowRoot.querySelector('button')
+            return submitBtn
+            """
+        )
 
-        # contact_submit_btn.click()
-        # time.sleep(2)
+        contact_submit_btn.click()
+        time.sleep(2)
 
         print("Job complete")
         driver.quit()
 
-    # Todo - make more robust
     except Exception as e:
         print(f"Error: {e}")
 
 
-def time_to_annoy():
+def time_to_annoy() -> None:
     PatrickStar = Idiot()
     to_lower_rand = random.randint(1, 3)
     PatrickStar.gen_name()
