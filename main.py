@@ -230,16 +230,14 @@ class Idiot:
 def submit_annyoing_msg(query: str) -> None:
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
-    # Uncomment these out when ready to roll
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--window-size=1920,1080")
 
     try:
         driver = webdriver.Chrome(options=chrome_options)
-        # driver = webdriver.Chrome(service=Service(), options=chrome_options)
         driver.get(os.getenv("URL"))
         time.sleep(6)
 
@@ -374,6 +372,7 @@ def time_to_annoy() -> None:
         query.lower()
 
     submit_annyoing_msg(query, PatrickStar)
+    print(f"Query sent: {PatrickStar.query}")
 
 
 if __name__ == "__main__":
