@@ -224,14 +224,19 @@ class Idiot:
                 self.query = "are you product halal?"
             case 34:
                 self.query = "are your shoes kosher?"
+            case 35:
+                self.query = "do you guys deliver?"
         return self.query
 
 
-def submit_annyoing_msg(query: str) -> None:
+def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
+
+    # Disable these to test
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
+
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--window-size=1920,1080")
@@ -301,7 +306,7 @@ def submit_annyoing_msg(query: str) -> None:
         first_name_input.click()
         first_name_input.clear()
         time.sleep(1)
-        first_name_input.send_keys(Idiot.first_name)
+        first_name_input.send_keys(PatrickStar.first_name)
         time.sleep(1)
 
         last_name_input = driver.execute_script(
@@ -317,7 +322,7 @@ def submit_annyoing_msg(query: str) -> None:
         last_name_input.click()
         last_name_input.clear()
         time.sleep(1)
-        last_name_input.send_keys(Idiot.last_name)
+        last_name_input.send_keys(PatrickStar.last_name)
         time.sleep(1)
 
         email_input = driver.execute_script(
@@ -333,14 +338,14 @@ def submit_annyoing_msg(query: str) -> None:
         email_input.click()
         email_input.clear()
         time.sleep(1)
-        email_input.send_keys(Idiot.email)
+        email_input.send_keys(PatrickStar.email)
         time.sleep(1)
 
         contact_submit_btn = driver.execute_script(
             """
             const parent = document.getElementById('ShopifyChat')
             const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button')
+            const submitBtn = shadowRoot.querySelector('button[type="submit"].hover-effect-button')
             return submitBtn
             """
         )
@@ -349,6 +354,7 @@ def submit_annyoing_msg(query: str) -> None:
         time.sleep(2)
 
         print("Job complete")
+        time.sleep(6)
         driver.quit()
 
     except Exception as e:

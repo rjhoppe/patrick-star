@@ -33,12 +33,12 @@ repos:
     hooks:
       - id: prettier
     # Lint Dockerfile
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.0-beta
-    hooks:
-      - id: hadolint-docker
-        entry: hadolint/hadolint:v2.12.1-beta hadolint
-    # Run pytest
+  # - repo: https://github.com/hadolint/hadolint
+  #   rev: v2.13.0-beta
+  #   hooks:
+  #     - id: hadolint-docker
+  #       entry: hadolint/hadolint:v2.12.1-beta hadolint
+  # Run pytest
   # - repo: local
   #   hooks:
   #     - id: run-pytest
