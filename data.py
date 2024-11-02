@@ -6,6 +6,7 @@ load_dotenv()
 
 first_names = [
     "Rey",
+    "Tito",
     "Sleve",
     "Onson",
     "Darryl",
@@ -43,6 +44,8 @@ last_names = [
     "Dugnutt",
     "Dustice",
     "Gride",
+    "Bingus",
+    "Bigsby",
     "Dourove",
     "Furcotte",
     "Wesrey",
@@ -205,6 +208,8 @@ weird_currencies = [
     "Jersey pounds",
     "ouguiyas",
     "kinas",
+    "crystals",
+    "rare gems",
 ]
 
 store_links = [
@@ -220,6 +225,7 @@ random_locations = [
     "Papua New Guinea",
     "Pakistan",
     "Missouri",
+    "Springfield",
     "Faroe Islands",
     "Falkland Islands",
     "Seychelles",
