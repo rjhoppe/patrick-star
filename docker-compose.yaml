@@ -1,0 +1,7 @@
+version: "3"
+services:
+  patrick-star:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: patrick-star/latest
