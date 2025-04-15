@@ -1,8 +1,9 @@
-import logging  # Remove this after testing
+import logging
 import os
 import random
 import time
 
+import requests
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -70,7 +71,7 @@ class Idiot:
             )
 
     def gen_intro(self) -> str:
-        random_intro = random.randint(1, 10)
+        random_intro = random.randint(1, 12)
         if self.include_name:
             match random_intro:
                 case 1:
@@ -353,12 +354,27 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         contact_submit_btn.click()
         time.sleep(2)
 
-        print("Job complete")
+        logging.info("Job complete")
         time.sleep(6)
         driver.quit()
 
     except Exception as e:
-        print(f"Error: {e}")
+        logging.error(f"Error: {e}")
+
+
+def ping_ntfy(msg: str) -> None:
+    logging.info("Pinging ntfy...")
+    url = os.getenv("NTFY_URL")
+    data = f"""patrick-star successfully run
+
+{msg}"""
+    headers = {"Tags": "heavy_check_mark,patrick-star,cron-job"}
+
+    try:
+        response = requests.post(url, data=data, headers=headers)
+        logging.info(response.status_code)
+    except Exception as e:
+        logging.error(f"Error: {e}")
 
 
 def time_to_annoy() -> None:
@@ -378,7 +394,8 @@ def time_to_annoy() -> None:
         query.lower()
 
     submit_annyoing_msg(query, PatrickStar)
-    print(f"Query sent: {PatrickStar.query}")
+    logging.info(f"Query sent: {PatrickStar.query}")
+    ping_ntfy(PatrickStar.query)
 
 
 if __name__ == "__main__":

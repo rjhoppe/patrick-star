@@ -10,4 +10,4 @@ docker build \
   --build-arg STORE_PAGE3=$STORE_PAGE3 \
   --build-arg STORE_PAGE4=$STORE_PAGE4 \
   --build-arg STORE_PAGE5=$STORE_PAGE5 \
-  -t patrick-star:v2 .
+  -t patrick-star:latest .
