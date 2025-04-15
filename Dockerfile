@@ -1,20 +1,5 @@
-FROM python:3.12-slim
+FROM python:3.13-slim
 ENV LANG=C.UTF-8
-
-ARG URL
-ARG STORE_PAGE1
-ARG STORE_PAGE2
-ARG STORE_PAGE3
-ARG STORE_PAGE4
-ARG STORE_PAGE5
-
-# Set environment variables from arguments
-ENV URL=${URL}
-ENV STORE_PAGE1=${STORE_PAGE1}
-ENV STORE_PAGE2=${STORE_PAGE2}
-ENV STORE_PAGE3=${STORE_PAGE3}
-ENV STORE_PAGE4=${STORE_PAGE4}
-ENV STORE_PAGE5=${STORE_PAGE5}
 
 WORKDIR /app
 
@@ -48,5 +33,14 @@ RUN : \
 RUN : \
   && pip install --no-cache-dir --ignore-installed -r requirements.txt \
   && :
+
+# Set env vars
+ENV URL=
+ENV STORE_PAGE1=
+ENV STORE_PAGE2=
+ENV STORE_PAGE3=
+ENV STORE_PAGE4=
+ENV STORE_PAGE5=
+ENV NTFY_URL=
 
 CMD ["python3", "main.py"]
