@@ -4,6 +4,7 @@ import random
 import time
 
 import requests
+from discord_webhook import DiscordWebhook
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -362,16 +363,28 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         logging.error(f"Error: {e}")
 
 
-def ping_ntfy(msg: str) -> None:
+def ping_ntfy(name: str, msg: str) -> None:
     logging.info("Pinging ntfy...")
     url = os.getenv("NTFY_URL")
     data = f"""patrick-star successfully run
 
-{msg}"""
+{name}: {msg}"""
     headers = {"Tags": "heavy_check_mark,patrick-star,cron-job"}
 
     try:
         response = requests.post(url, data=data, headers=headers)
+        logging.info(response.status_code)
+    except Exception as e:
+        logging.error(f"Error: {e}")
+
+
+def ping_discord(name: str, msg: str) -> None:
+    logging.info("Pinging Discord...")
+    msg = f"{name}: {msg}"
+    webhook_url = os.getenv("WEBHOOK")
+    try:
+        webhook = DiscordWebhook(url=webhook_url, content=msg)
+        response = webhook.execute()
         logging.info(response.status_code)
     except Exception as e:
         logging.error(f"Error: {e}")
@@ -394,8 +407,9 @@ def time_to_annoy() -> None:
         query.lower()
 
     submit_annyoing_msg(query, PatrickStar)
-    logging.info(f"Query sent: {PatrickStar.query}")
-    ping_ntfy(PatrickStar.query)
+    logging.info(f"Query sent by {PatrickStar.full_name}: {PatrickStar.query}")
+    ping_ntfy(PatrickStar.full_name, PatrickStar.query)
+    ping_discord(PatrickStar.full_name, PatrickStar.query)
 
 
 if __name__ == "__main__":
