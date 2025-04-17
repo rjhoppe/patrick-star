@@ -2,7 +2,7 @@
 .git
 .gitignore
 .gitattributes
-
+docker-run-host.sh
 
 # CI
 .codeclimate.yml

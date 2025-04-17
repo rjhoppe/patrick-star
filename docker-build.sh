@@ -10,4 +10,6 @@ docker build \
   --build-arg STORE_PAGE3=$STORE_PAGE3 \
   --build-arg STORE_PAGE4=$STORE_PAGE4 \
   --build-arg STORE_PAGE5=$STORE_PAGE5 \
-  -t patrick-star:latest .
+  --build-arg NTFY_URL=$NTFY_URL \
+  --build-arg WEBHOOK=$WEBHOOK \
+  -t patrick-star:local .
