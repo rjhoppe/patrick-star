@@ -38,12 +38,13 @@ repos:
   #   hooks:
   #     - id: hadolint-docker
   #       entry: hadolint/hadolint:v2.12.1-beta hadolint
-  # Run pytest
-  # - repo: local
-  #   hooks:
-  #     - id: run-pytest
-  #       name: Run pytest
-  #       entry: pytest
-  #       language: python
-  #       types: [python]
-  #       additional_dependencies: [pytest]
+
+  #Run pytest
+  - repo: local
+    hooks:
+      - id: run-pytest
+        name: Run pytest
+        entry: bash -c 'pip install -r requirements.txt && PYTHONPATH=. pytest'
+        language: python
+        types: [python]
+        additional_dependencies: [pytest]
