@@ -24,7 +24,7 @@ class Idiot:
         self.intro = None
         self.random_include_name = random.randint(1, 2)
         self.random_include_greeting = random.randint(1, 4)
-        self.random_query = random.randint(1, 40)
+        self.random_query = random.randint(1, 41)
         if self.random_include_name == 1:
             self.include_name = True
         else:
@@ -241,6 +241,26 @@ class Idiot:
                 self.query = (
                     "if i supplied the leather... could you make the shoes out of it..."
                 )
+            case 41:
+                self.query = "remember me fuckface?"
+            case 42:
+                self.query = "is it possible to only buy 1 shoe?"
+            case 43:
+                self.query = "does your store offer free WiFi?"
+            case 44:
+                self.query = "I am outside your store. can you let me in plz?"
+            case 45:
+                self.query = "do you know what you will have available in 2029"
+            case 46:
+                self.query = "do you guys cater?"
+            case 47:
+                self.query = "if only you knew how bad things really were"
+            case 48:
+                self.query = "Glow2:wave2: buying fancy boots"
+            case 49:
+                self.query = "I am in the mood for some: formal. men's. footwear."
+            case 50:
+                self.query = "your website makes my brain hurt O_O"
         return self.query
 
 

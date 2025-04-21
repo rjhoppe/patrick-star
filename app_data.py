@@ -57,6 +57,12 @@ first_names = [
     "Anubarak",
     "Tichondrius",
     "Grom",
+    "Draco",
+    "Quandealius",
+    "Anvil",
+    "Diesel",
+    "Mephistopheles",
+    "Mandalore",
 ]
 
 last_names = [
@@ -91,6 +97,7 @@ last_names = [
     "Gronkowski",
     "Knuckles",
     "Balderdash",
+    "Goldberg",
     "McDungus",
     "Willis",
     "Spandarius",
@@ -114,6 +121,7 @@ time_measurements = [
     "country moons",
     "Sidereal days",
     "dog years",
+    "aeons",
 ]
 
 weird_shoes_urls = [
@@ -124,6 +132,7 @@ weird_shoes_urls = [
     "https://queerintheworldshop.com/products/rainbow-snakeskin-wing-tip-dress-shoes?currency=USD&variant=43925961900252&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=d4b7c19d2d2e&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJMXkmp7y4P8zjbxi6RqWVpckWVzBlZKKdw43bvcqiOUiunVg0fXoIRoCr5EQAvD_BwE",
     "https://crocodilewear.com/products/cowboyluxe-embroidered-leather-dress-loafers?currency=USD&variant=40505682296886&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=77d664eac709&utm_source=&utm_medium=&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJPA6JnGmW8jjCOwTJKDKT8RwwG2hnHe3U_DJUfGbuyy138B5TCT_DhoCCncQAvD_BwE",
     "https://www.etsy.com/listing/1401591437/handmade-cockney-footwear-two-tone-black?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=&ref=sr_gallery-2-2&etp=1&content_source=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437&logging_key=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437",
+    "https://www.amazon.com/dp/B009TQPAQA?ref=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&ref_=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&social_share=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&previewDoh=1",
 ]
 
 random_colors = [
@@ -301,6 +310,7 @@ random_locations = [
     "Mesopotamia",
     "Anatolia",
     "the Persian Gulf",
+    "Malachor V",
 ]
 
 show_locations = [
@@ -319,4 +329,5 @@ show_locations = [
     "Damascus",
     "Tehran",
     "Persia",
+    "Vietnam",
 ]
