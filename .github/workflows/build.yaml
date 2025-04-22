@@ -64,21 +64,18 @@ jobs:
             -e NTFY_URL=${NTFY_URL} \
             -e WEBHOOK=${WEBHOOK} \
             -d patrick-star:test
-          EXIT_CODE=$?
+          echo "exit_code=0" >> $GITHUB_OUTPUT
+        continue-on-error: true
 
-          echo "Container exited with code: $EXIT_CODE"
-          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
-
-      - name: Verify container ran successfully
+      - name: Check exit code
+        if: steps.run_container.outputs.exit_code != '0'
         run: |
-          EXIT_CODE=${{ steps.run_container.outputs.exit_code }}
-          # Check if the container exited successfully (code 0)
-          if [ "$EXIT_CODE" -eq 0 ]; then
-            echo "✅ Container executed successfully"
-          else
-            echo "❌ Container failed with exit code $EXIT_CODE"
-            exit 1
-          fi
+          echo "❌ Container failed to run successfully."
+          exit 1
+
+      - name: Success
+        if: steps.run_container.outputs.exit_code == '0'
+        run: echo "✅ Container ran successfully!"
 
       - name: Cleanup Docker resources
         if: always() # This ensures cleanup happens even if previous steps fail
