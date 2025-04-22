@@ -71,11 +71,12 @@ jobs:
 
       - name: Verify container ran successfully
         run: |
+          EXIT_CODE=${{ steps.run_container.outputs.exit_code }}
           # Check if the container exited successfully (code 0)
-          if [ "${{ steps.run_container.outputs.exit_code }}" -eq "0" ]; then
+          if [ "$EXIT_CODE" -eq 0 ]; then
             echo "✅ Container executed successfully"
           else
-            echo "❌ Container failed with exit code ${{ steps.run_container.outputs.exit_code }}"
+            echo "❌ Container failed with exit code $EXIT_CODE"
             exit 1
           fi
 
