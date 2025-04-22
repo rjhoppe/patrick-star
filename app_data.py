@@ -11,6 +11,7 @@ first_names = [
     "Onson",
     "Darryl",
     "Glenallen",
+    "Barnalbee",
     "Mario",
     "Raul",
     "Kevin",
@@ -27,7 +28,7 @@ first_names = [
     "Dwigt",
     "Todd",
     "Tim",
-    "Karl",
+    "Kerl",
     "Moti",
     "Buckingham",
     "Cadbury",
@@ -63,6 +64,10 @@ first_names = [
     "Diesel",
     "Mephistopheles",
     "Mandalore",
+    "Mahakam",
+    "Vesemir",
+    "Glough",
+    "Gothmog",
 ]
 
 last_names = [
@@ -106,6 +111,12 @@ last_names = [
     "Nummies",
     "Hellscream",
     "Epstein",
+    "Barbrady",
+    "Azkaban",
+    "Dimwiddie",
+    "Sazerac",
+    "Sarsaparilla",
+    "Rikitikitavi",
 ]
 
 time_measurements = [
@@ -133,6 +144,7 @@ weird_shoes_urls = [
     "https://crocodilewear.com/products/cowboyluxe-embroidered-leather-dress-loafers?currency=USD&variant=40505682296886&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=77d664eac709&utm_source=&utm_medium=&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJPA6JnGmW8jjCOwTJKDKT8RwwG2hnHe3U_DJUfGbuyy138B5TCT_DhoCCncQAvD_BwE",
     "https://www.etsy.com/listing/1401591437/handmade-cockney-footwear-two-tone-black?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=&ref=sr_gallery-2-2&etp=1&content_source=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437&logging_key=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437",
     "https://www.amazon.com/dp/B009TQPAQA?ref=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&ref_=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&social_share=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&previewDoh=1",
+    "https://www.etsy.com/listing/166146726/oversized-red-gnome-hat-extra-wide-bell?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=red+gnome+hat&ref=sr_gallery-1-4&pro=1&frs=1&sts=1&content_source=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726&organic_search_click=1&logging_key=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726"
 ]
 
 random_colors = [
@@ -160,10 +172,12 @@ random_colors = [
     "wenge",
     "xanadu",
     "phlox",
+    "pussy willow",
 ]
 
 random_animals = [
     "walrus",
+    "aardvark",
     "capybara",
     "jaguar",
     "anaconda",
@@ -252,7 +266,6 @@ weird_currencies = [
     "Dogecoin",
     "Ethereum",
     "travelers checks",
-    "coins",
     "Brunei dollars",
     "nakfas",
     "quetzals",
@@ -264,6 +277,7 @@ weird_currencies = [
     "tokkul",
     "wampum",
     "IOUs",
+    "spare change",
 ]
 
 store_links = [
@@ -285,6 +299,7 @@ random_locations = [
     "Seychelles",
     "Madagascar",
     "Tunisia",
+    "Greater Tasmania",
     "Lincoln",
     "Gaza",
     "Golan Heights",
@@ -309,8 +324,29 @@ random_locations = [
     "Brooklyn",
     "Mesopotamia",
     "Anatolia",
-    "the Persian Gulf",
+    "Persia",
     "Malachor V",
+    "the Vatican",
+    "Guadalcanal",
+    "Vichy France",
+    "Alsace-Lorraine",
+    "Eastern Turkmenistan",
+    "Burke, Virginia",
+    "San Marino",
+    "Grand Tiki Island",
+    "Royal Carube",
+    "Monkey Island",
+    "Williamsburg",
+    "Navajo Nation",
+    "Sealand",
+    "Greater Micronesia",
+    "the Grand Greater Outlands",
+    "the Minor Micro Isles"
+    "Lepanto",
+    "Isle of Man",
+    "Kingdom of Swadia",
+    "Great Scarab Island",
+    "Nightmare Zone",
 ]
 
 show_locations = [
@@ -330,4 +366,10 @@ show_locations = [
     "Tehran",
     "Persia",
     "Vietnam",
+    "Vatican City",
+    "Ocean City",
+    "Springfield",
+    "Micronesia",
+    "Macronesia",
+    "Zanaris",
 ]
