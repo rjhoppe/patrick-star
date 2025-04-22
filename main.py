@@ -10,7 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from data import *
+from app_data import *
 
 load_dotenv()
 
@@ -24,6 +24,7 @@ class Idiot:
         self.intro = None
         self.random_include_name = random.randint(1, 2)
         self.random_include_greeting = random.randint(1, 4)
+        self.random_query = random.randint(1, 41)
         if self.random_include_name == 1:
             self.include_name = True
         else:
@@ -130,11 +131,9 @@ class Idiot:
                     self.intro = "hello "
 
     def gen_query(self) -> str:
-        random_query = random.randint(1, 34)
-        match random_query:
+        match self.random_query:
             case 1:
-                random_shoe_link = random.choice(weird_shoes_urls)
-                self.query = f"I am wondering if you have anything like this? {random_shoe_link}. lmk"
+                self.query = "do you have any shoes in size 16? I can fit into a woman's size 19 if that helps"
             case 2:
                 random_shoe_part = random.choice(shoe_parts)
                 self.query = f"What is your selection of shoes with {random_shoe_part} on them? thanks"
@@ -148,7 +147,8 @@ class Idiot:
                 random_color = random.choice(random_colors)
                 self.query = f"How is your selection for things in {random_color}?"
             case 5:
-                self.query = "do you have any shoes in size 16? I can fit into a woman's size 19 if that helps"
+                random_shoe_link = random.choice(weird_shoes_urls)
+                self.query = f"I am wondering if you have anything like this? {random_shoe_link}. lmk"
             case 6:
                 self.query = "Do you do the shoe engraving thing?"
             case 7:
@@ -228,6 +228,39 @@ class Idiot:
                 self.query = "are your shoes kosher?"
             case 35:
                 self.query = "do you guys deliver?"
+            case 36:
+                shoe_url = random.choice(store_links)
+                self.query = f"are these best in slot? {shoe_url}"
+            case 37:
+                self.query = "can your shoes be cleaned with bleach?"
+            case 38:
+                self.query = "do you have cosplay shoes?"
+            case 39:
+                self.query = "do you guys actually read these?"
+            case 40:
+                self.query = (
+                    "if i supplied the leather... could you make the shoes out of it..."
+                )
+            case 41:
+                self.query = "remember me fuckface?"
+            case 42:
+                self.query = "is it possible to only buy 1 shoe?"
+            case 43:
+                self.query = "does your store offer free WiFi?"
+            case 44:
+                self.query = "I am outside your store. can you let me in plz?"
+            case 45:
+                self.query = "do you know what you will have available in 2029"
+            case 46:
+                self.query = "do you guys cater?"
+            case 47:
+                self.query = "if only you knew how bad things really were"
+            case 48:
+                self.query = "Glow2:wave2: buying fancy boots"
+            case 49:
+                self.query = "I am in the mood for some: formal. men's. footwear."
+            case 50:
+                self.query = "your website makes my brain hurt O_O"
         return self.query
 
 

@@ -2,4 +2,4 @@ failure-threshold: error
 format: json
 no-color: false
 no-fail: false
-trustedRegistries: docker.io
+trustedRegistries: [docker.io]
