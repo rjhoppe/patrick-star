@@ -55,14 +55,14 @@ jobs:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         run: |
           docker run --name test-container \
-            -e URL=${URL}
-            -e STORE_PAGE1=${STORE_PAGE1}
-            -e STORE_PAGE2=${STORE_PAGE2}
-            -e STORE_PAGE3=${STORE_PAGE3}
-            -e STORE_PAGE4=${STORE_PAGE4}
-            -e STORE_PAGE5=${STORE_PAGE5}
-            -e NTFY_URL=${NTFY_URL}
-            -e WEBHOOK=${WEBHOOK}
+            -e URL=${URL} \
+            -e STORE_PAGE1=${STORE_PAGE1} \
+            -e STORE_PAGE2=${STORE_PAGE2} \
+            -e STORE_PAGE3=${STORE_PAGE3} \
+            -e STORE_PAGE4=${STORE_PAGE4} \
+            -e STORE_PAGE5=${STORE_PAGE5} \
+            -e NTFY_URL=${NTFY_URL} \
+            -e WEBHOOK=${WEBHOOK} \
             -d patrick-star:test
           EXIT_CODE=$?
 
