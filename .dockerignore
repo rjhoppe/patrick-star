@@ -4,6 +4,8 @@
 .gitattributes
 docker-run-host.sh
 
+cache/
+
 # CI
 .codeclimate.yml
 .travis.yml
