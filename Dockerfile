@@ -44,4 +44,7 @@ ENV STORE_PAGE5=
 ENV NTFY_URL=
 ENV WEBHOOK=
 
+# Ensure the cache directory exists
+RUN mkdir -p /app/cache
+
 CMD ["python3", "main.py"]

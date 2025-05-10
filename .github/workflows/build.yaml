@@ -1,8 +1,8 @@
 name: build
 
 on:
-  pull_request:
-    branches: ["main", "master"]
+  push:
+    branches: [main, master]
 
 jobs:
   build:
@@ -81,7 +81,7 @@ jobs:
         if: always() # This ensures cleanup happens even if previous steps fail
         run: |
           docker rm -f test-container || true
-          docker image rm patrick-star || true
+          docker image rm patrick-star:test || true
 
   update:
     runs-on: ubuntu-latest

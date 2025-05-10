@@ -166,3 +166,5 @@ cython_debug/
 notes.txt
 archive/*
 docker-run-host.sh
+
+cache/

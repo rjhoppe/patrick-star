@@ -1,8 +1,11 @@
+import hashlib
+import json
 import logging
 import os
 import random
 import time
 
+import diskcache as dc
 import requests
 from discord_webhook import DiscordWebhook
 from dotenv import load_dotenv
@@ -15,6 +18,48 @@ from app_data import *
 load_dotenv()
 
 
+class Cache:
+    def __init__(self):
+        self.cache = dc.Cache("./cache")
+
+    def close_conn(self):
+        self.cache.close()
+
+    def create_key(self, query_type: str, query: str):
+        key_data = {"query_type": query_type, "query": str(query)}
+        key_str = json.dumps(key_data, sort_keys=True)
+        hashed = hashlib.sha256(key_str.encode()).hexdigest()
+        return f"{query_type}:{hashed}"
+
+    def add_key(self, key) -> None:
+        # 5 days
+        time = 120 * 60 * 60
+        self.cache.set(key, True, expire=time)
+        self.close_conn()
+
+    def check_if_key_exists(self, query_type: str, query: str) -> bool:
+        key = self.create_key(query_type, query)
+        try:
+            with dc.Cache("./cache", timeout=5) as cache:
+                does_exist = cache.get(key, retry=False)
+
+                if does_exist is None:
+                    self.add_key(key)
+                    return False
+                return True
+        except Exception as e:
+            self.close_conn()
+            print(f"[Cache Error] Could not read from cache: {e}")
+            return False
+
+    def clean_cache(self):
+        self.cache.expire()
+
+    # method to flush the cache - useful for testing
+    def clear_cache(self):
+        self.cache.clear()
+
+
 class Idiot:
     def __init__(self):
         self.first_name = None
@@ -24,7 +69,7 @@ class Idiot:
         self.intro = None
         self.random_include_name = random.randint(1, 2)
         self.random_include_greeting = random.randint(1, 4)
-        self.random_query = random.randint(1, 41)
+        self.random_query = None
         if self.random_include_name == 1:
             self.include_name = True
         else:
@@ -34,9 +79,13 @@ class Idiot:
         else:
             self.include_greeting = False
 
-    def gen_name(self) -> str:
+    def gen_first_name(self) -> str:
         self.first_name = random.choice(first_names)
+
+    def gen_last_name(self) -> str:
         self.last_name = random.choice(last_names)
+
+    def gen_full_name(self) -> str:
         self.full_name = self.first_name + " " + self.last_name
 
     def gen_email(self) -> str:
@@ -129,6 +178,9 @@ class Idiot:
                     self.intro = "hey "
                 case 12:
                     self.intro = "hello "
+
+    def gen_random_query_num(self) -> str:
+        self.random_query = random.randint(1, 76)
 
     def gen_query(self) -> str:
         match self.random_query:
@@ -223,7 +275,7 @@ class Idiot:
             case 32:
                 self.query = 'What does the "J" stand for?'
             case 33:
-                self.query = "are you product halal?"
+                self.query = "are your product halal?"
             case 34:
                 self.query = "are your shoes kosher?"
             case 35:
@@ -261,6 +313,67 @@ class Idiot:
                 self.query = "I am in the mood for some: formal. men's. footwear."
             case 50:
                 self.query = "your website makes my brain hurt O_O"
+            case 51:
+                self.query = "do you deliver on the Sabbath?"
+            case 52:
+                self.query = "do you deliver on the day after the Sabbath?"
+            case 53:
+                self.query = "listen, I'm not saying its your shoes, but I have been getting SOME since I started wearing these around the funeral home"
+            case 54:
+                self.query = "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm shoes :)"
+            case 55:
+                self.query = "can I do an exchange for something out of stock?"
+            case 56:
+                self.query = "can I get interest on my return amount :^)"
+            case 57:
+                self.query = (
+                    "can you expedite the return on my expedited shipping exchange?"
+                )
+            case 58:
+                mens_size = random.randint(4, 18)
+                self.query = f"what size would you recommend for someone who only wears size {mens_size} Crocs?"
+            case 59:
+                self.query = "your shoes make my penis look small >=("
+            case 60:
+                self.query = "can I get an extra large expedited return exchange on my order for the amount in full?"
+            case 61:
+                self.query = "can I initialize the return ordered operation for an exchange that I have already attempt to remediate - figuratively speaking?"
+            case 62:
+                self.query = "id like to do a full complete revision of my submitted order invoice - for tax purposes"
+            case 63:
+                random_store = random.choice(bizarre_retailers)
+                self.query = f"can I change my payment method, i accidentally put it all on my {random_store} card - thanks"
+            case 64:
+                self.query = "can you paint flames on my shoes? thx"
+            case 65:
+                self.query = "english no well, cart not help order pay rapido"
+            case 66:
+                self.query = (
+                    "I am wondering if you ship orders in deliveries or is different?"
+                )
+            case 67:
+                self.query = "review where? must review read and review"
+            case 68:
+                self.query = "mmm shoes :)"
+            case 69:
+                self.query = (
+                    "please add dark mode to your website, that is what I would do"
+                )
+            case 70:
+                self.query = "If I ever see you in the Falador bank again, let's just say. There's gonna be trouble"
+            case 71:
+                self.query = "Do you sell on the Grand Exchange? please?"
+            case 72:
+                self.query = "first: I buy shoes, then: I leave a shitty review. It's that simple"
+            case 73:
+                self.query = "do you offer any 'all terrain' shoes? I uh work in a particular line of work"
+            case 74:
+                random_product = random.choice(sticky_things)
+                self.query = f"HELP - I accidentally spilled {random_product} on my new suede shoes. What do? I may have accidentally rubbed it in"
+            case 75:
+                self.query = "is Fitzpatrick a family name?"
+            case 76:
+                self.query = "if I were to wear two shoes on my hands and two shoes on my feet, what would you recommend as the size difference between the front paws and back ones? thanks"
         return self.query
 
 
@@ -401,7 +514,7 @@ def ping_ntfy(name: str, msg: str) -> None:
     url = os.getenv("NTFY_URL")
     data = f"""patrick-star successfully run
 
-{name}: {msg}"""
+    {name}: {msg}"""
     headers = {"Tags": "heavy_check_mark,patrick-star,cron-job"}
 
     try:
@@ -413,8 +526,8 @@ def ping_ntfy(name: str, msg: str) -> None:
 
 def ping_discord(name: str, msg: str) -> None:
     logging.info("Pinging Discord...")
-    msg = f"{name}: {msg}"
     webhook_url = os.getenv("WEBHOOK")
+    msg = f"{name}: {msg}"
     try:
         webhook = DiscordWebhook(url=webhook_url, content=msg)
         response = webhook.execute()
@@ -424,25 +537,58 @@ def ping_discord(name: str, msg: str) -> None:
 
 
 def time_to_annoy() -> None:
+    DiskCache = Cache()
     PatrickStar = Idiot()
+
     to_lower_rand = random.randint(1, 3)
-    PatrickStar.gen_name()
+    PatrickStar.gen_first_name()
+    PatrickStar.gen_last_name()
+    PatrickStar.gen_full_name()
     PatrickStar.gen_email()
+    PatrickStar.gen_random_query_num()
 
     if PatrickStar.include_greeting:
         PatrickStar.gen_intro()
 
-    query = PatrickStar.gen_query()
-    if PatrickStar.intro is not None:
-        query = PatrickStar.intro + PatrickStar.query
+    while True:
+        query = PatrickStar.gen_query()
+        if PatrickStar.intro:
+            query = PatrickStar.intro + query
 
-    if to_lower_rand == 1:
-        query.lower()
+        if to_lower_rand == 1:
+            query = query.lower()
+
+        if not DiskCache.check_if_key_exists(query_type="query", query=query):
+            break
+
+        PatrickStar.gen_random_query_num()
+
+    while True:
+        if not DiskCache.check_if_key_exists(
+            query_type="first_name", query=PatrickStar.first_name
+        ):
+            break
+        else:
+            PatrickStar.gen_first_name()
+
+    while True:
+        if not DiskCache.check_if_key_exists(
+            query_type="last_name", query=PatrickStar.last_name
+        ):
+            break
+        else:
+            PatrickStar.gen_last_name()
+
+    PatrickStar.gen_full_name()
 
     submit_annyoing_msg(query, PatrickStar)
-    logging.info(f"Query sent by {PatrickStar.full_name}: {PatrickStar.query}")
-    ping_ntfy(PatrickStar.full_name, PatrickStar.query)
-    ping_discord(PatrickStar.full_name, PatrickStar.query)
+    print(f"Query sent by {PatrickStar.full_name}: {query}")
+    logging.info(f"Query sent by {PatrickStar.full_name}: {query}")
+    ping_ntfy(PatrickStar.full_name, query)
+    ping_discord(PatrickStar.full_name, query)
+
+    # DiskCache.clear_cache()
+    DiskCache.clean_cache()
 
 
 if __name__ == "__main__":

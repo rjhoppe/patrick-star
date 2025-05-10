@@ -27,7 +27,9 @@ def test_gen_name():
     Testing name generation functionality
     """
     TestIdiot = Idiot()
-    TestIdiot.gen_name()
+    TestIdiot.gen_first_name()
+    TestIdiot.gen_last_name()
+    TestIdiot.gen_full_name()
     assert TestIdiot.full_name is not None
     assert TestIdiot.full_name == str(TestIdiot.full_name)
 
@@ -43,7 +45,9 @@ def test_gen_email():
     Testing email generation functionality
     """
     TestIdiot = Idiot()
-    TestIdiot.gen_name()
+    TestIdiot.gen_first_name()
+    TestIdiot.gen_last_name()
+    TestIdiot.gen_full_name()
     TestIdiot.gen_email()
 
     possible_email_domains = ["gmai1", "yahooo", "hotmai1", "ao1", "qmail"]
@@ -62,7 +66,9 @@ def test_first_gen_query():
     Testing to ensure full range of query options (i.e. first one is accessible)
     """
     TestIdiot = Idiot()
-    TestIdiot.gen_name()
+    TestIdiot.gen_first_name()
+    TestIdiot.gen_last_name()
+    TestIdiot.gen_full_name()
     TestIdiot.gen_email()
     TestIdiot.random_query = 1
 
@@ -76,14 +82,14 @@ def test_last_gen_query():
     Testing to ensure full range of query options (i.e. last one is accessible)
     """
     TestIdiot = Idiot()
-    TestIdiot.gen_name()
+    TestIdiot.gen_first_name()
+    TestIdiot.gen_last_name()
+    TestIdiot.gen_full_name()
     TestIdiot.gen_email()
     # Last query
-    TestIdiot.random_query = 40
+    TestIdiot.random_query = 75
 
-    expected_output = (
-        "if i supplied the leather... could you make the shoes out of it..."
-    )
+    expected_output = "is Fitzpatrick a family name?"
     actual_output = TestIdiot.gen_query()
     assert expected_output == actual_output
 
