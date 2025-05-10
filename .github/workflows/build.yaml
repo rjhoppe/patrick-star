@@ -11,21 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Generate cache key
-        id: cache-key
-        run: echo "key=${{ runner.os }}-buildx-${{ github.sha }}" >> $GITHUB_OUTPUT
-
       # Step 2: Set up Docker Buildx (to use BuildKit for better caching and features)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Cache Docker layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ steps.cache-key.outputs.key }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
 
       - name: Build Docker image
         uses: docker/build-push-action@v5
@@ -34,14 +22,9 @@ jobs:
           push: false
           load: true
           tags: patrick-star:test
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           outputs: type=docker
-
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Test container start
         env:
@@ -54,7 +37,7 @@ jobs:
           NTFY_URL: ${{ secrets.NTFY_URL }}
           WEBHOOK: ${{ secrets.WEBHOOK }}
         run: |
-          docker run --name test-container \
+          if docker run --name test-container \
             -e URL=${URL} \
             -e STORE_PAGE1=${STORE_PAGE1} \
             -e STORE_PAGE2=${STORE_PAGE2} \
@@ -63,9 +46,11 @@ jobs:
             -e STORE_PAGE5=${STORE_PAGE5} \
             -e NTFY_URL=${NTFY_URL} \
             -e WEBHOOK=${WEBHOOK} \
-            -d patrick-star:test
-          echo "exit_code=0" >> $GITHUB_OUTPUT
-        continue-on-error: true
+            -d patrick-star:test; then
+            echo "exit_code=0" >> $GITHUB_OUTPUT
+          else
+            echo "exit_code=1" >> $GITHUB_OUTPUT
+          fi
 
       - name: Check exit code
         if: steps.run_container.outputs.exit_code != '0'
