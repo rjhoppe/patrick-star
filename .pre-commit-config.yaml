@@ -47,4 +47,4 @@ repos:
         entry: bash -c 'pip install -r requirements.txt && PYTHONPATH=. pytest'
         language: python
         types: [python]
-        additional_dependencies: [pytest]
+        additional_dependencies: [pytest, pytest-mock]

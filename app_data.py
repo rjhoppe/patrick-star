@@ -41,6 +41,9 @@ first_names = [
     "Jeremiah",
     "Patches",
     "Turok",
+    "Duff",
+    "Eragon",
+    "Aslan",
     "Illidan",
     "Rexxar",
     "Comarc",
@@ -94,7 +97,7 @@ first_names = [
     "Jimjam",
     "Archimedes",
     "Weasel",
-    "Crash",
+    "Terrador",
     "Ripto",
     "Schnookums",
     "Zenedar",
@@ -108,6 +111,25 @@ first_names = [
     "Rosh",
     "Lemarcus",
     "Tylenol",
+    "Spank",
+    "Arkantos",
+    "Zappster",
+    "Diophetes",
+    "Ki-Adi-Mundi",
+    "Bao-Dur",
+    "Meetra",
+    "GO-TO",
+    "Claymore",
+    "Mosin",
+    "Guandao",
+    "Sabot",
+    "Tungsten",
+    "Dagoth Ur",
+    "Ugluk,"
+    "Lurtz",
+    "Skeeter",
+    "Goblin",
+    "Plobb",
 ]
 
 last_names = [
@@ -183,6 +205,31 @@ last_names = [
     "Yuengling",
     "Zaxbys",
     "Barbacoa",
+    "Fapperson",
+    "Masterbatar",
+    "Goonsworth",
+    "Goonsgiving",
+    "Scrimdunctious",
+    "Mangoo",
+    "Hertzdonut",
+    "Crankhog",
+    "Skillet",
+    "Underball",
+    "Hoggmaster",
+    "Cumlerd",
+    "Coomer",
+    "Davydavis",
+    "Bugsnax",
+    "Svalbard",
+    "Ces Boules"
+    "Danger",
+    "LeHog",
+    "Jonesby",
+    "the Unnamed",
+    "the Cursed",
+    "the Unspeakable",
+    "the Unmentionable",
+    "Nads",
 ]
 
 time_measurements = [
@@ -192,6 +239,8 @@ time_measurements = [
     "years",
     "weeks",
     "months",
+    "lightyears",
+    "epochs",
     "moons",
     "fortnights",
     "Juneteenths",
@@ -211,7 +260,8 @@ sticky_things = [
     "16L of Dairy Queen's Blue Raspberry Arctic Rush",
     "ALOT of Chick Fil-A Polynesian Sauce",
     "Diet Caffeine-Free Cherry Vanilla Dr. Pepper™",
-    "an entire sixpack of Seagram's Jamaican Me Happy"
+    "an entire sixpack of Seagram's Jamaican Me Happy",
+    "67 oz of Calypso lemonade (it was minging)",
 ]
 
 weird_shoes_urls = [
@@ -429,6 +479,7 @@ random_locations = [
     "Kingdom of Swadia",
     "Great Scarab Island",
     "Nightmare Zone",
+    "Ape Atoll",
 ]
 
 show_locations = [
@@ -461,10 +512,36 @@ bizarre_retailers = [
     "Sizzlers",
     "Roblox",
     "Auntie Annes",
+    "Booksamillion",
+    "Party City",
     "Dave and Busters",
     "Rainforest Cafe",
     "Margaritaville",
     "Lazer Quest",
     "Jagex",
     "Linux Foundation",
+]
+
+ancient_hawaiians = [
+  "The coconut that stands alone is the first to be picked.",
+  "Even the slowest sea turtle reaches the shore if it keeps paddling.",
+  "The best way to catch a fish is to be a fish.",
+  "When the wave knocks you down, the sand is there to catch you.",
+  "A surfboard left in the sun will crack, but one in the water will ride.",
+  "The gecko who listens learns where the bugs are.",
+  "You cant paddle out if you never leave the shore.",
+  "A tangled net catches no fish.",
+  "The loudest conch shell doesnt always call the biggest wave.",
+  "When the mango is ripe, it will fall.",
+  "Better to wipe out trying than to never catch a wave.",
+]
+
+events = [
+  "family reunion",
+  "hoedown",
+  "hula contest",
+  "first aid training",
+  "hog hunt",
+  "big kitchen, interior, and bath expo",
+  ""
 ]

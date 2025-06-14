@@ -93,8 +93,9 @@ venv/
 .vscode/
 
 README.md
-.ruff_cache/*
-.github/*
-tests/*
-node_modules/*
-archive/*
+.ruff_cache/
+notes.txt
+.github/
+tests/
+node_modules/
+archive/

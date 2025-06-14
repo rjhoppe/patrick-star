@@ -37,3 +37,33 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/patrick-star:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Send success notification to Discord
+        if: success() # This step only runs if the previous steps were successful
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{
+            "content": "🚀 patrick-star successfully updated!",
+            "embeds": [{
+              "title": "Commit Details",
+              "description": "The Docker build was successful. Here's the commit message:",
+              "fields": [
+                {
+                  "name": "Commit Message",
+                  "value": "${{ github.event.head_commit.message }}",
+                  "inline": false
+                },
+                {
+                  "name": "Branch",
+                  "value": "${{ github.ref }}",
+                  "inline": true
+                },
+                {
+                  "name": "Commit SHA",
+                  "value": "${{ github.sha }}",
+                  "inline": true
+                }
+              ]
+            }]
+          }' \
+          ${{ secrets.WEBHOOK }}
