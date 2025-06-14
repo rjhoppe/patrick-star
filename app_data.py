@@ -41,6 +41,9 @@ first_names = [
     "Jeremiah",
     "Patches",
     "Turok",
+    "Duff",
+    "Eragon",
+    "Aslan",
     "Illidan",
     "Rexxar",
     "Comarc",
@@ -94,7 +97,7 @@ first_names = [
     "Jimjam",
     "Archimedes",
     "Weasel",
-    "Crash",
+    "Terrador",
     "Ripto",
     "Schnookums",
     "Zenedar",
@@ -108,6 +111,22 @@ first_names = [
     "Rosh",
     "Lemarcus",
     "Tylenol",
+    "Spank",
+    "Arkantos",
+    "Zappster",
+    "Diophetes",
+    "Ki-Adi-Mundi",
+    "Bao-Dur",
+    "Meetra",
+    "GO-TO",
+    "Claymore",
+    "Mosin",
+    "Guandao",
+    "Sabot",
+    "Tungsten",
+    "Dagoth Ur",
+    "Ugluk,"
+    "Lurtz",
 ]
 
 last_names = [
@@ -183,6 +202,28 @@ last_names = [
     "Yuengling",
     "Zaxbys",
     "Barbacoa",
+    "Fapperson",
+    "Masterbatar",
+    "Goonsworth",
+    "Goonsgiving",
+    "Scrimdunctious",
+    "Mangoo",
+    "Hertzdonut",
+    "Crankhog",
+    "Skillet",
+    "Underball",
+    "Hoggmaster",
+    "Cumlerd",
+    "Coomer",
+    "Davydavis",
+    "Bugsnax",
+    "Svalbard",
+    "Ces Boules"
+    "Danger",
+    "LeHog",
+    "Jonesby",
+    "the Unnamed",
+    "the Cursed",
 ]
 
 time_measurements = [
@@ -192,6 +233,8 @@ time_measurements = [
     "years",
     "weeks",
     "months",
+    "lightyears",
+    "epochs",
     "moons",
     "fortnights",
     "Juneteenths",
@@ -211,7 +254,8 @@ sticky_things = [
     "16L of Dairy Queen's Blue Raspberry Arctic Rush",
     "ALOT of Chick Fil-A Polynesian Sauce",
     "Diet Caffeine-Free Cherry Vanilla Dr. Pepper™",
-    "an entire sixpack of Seagram's Jamaican Me Happy"
+    "an entire sixpack of Seagram's Jamaican Me Happy",
+    "67 oz of Calypso lemonade (it was minging)",
 ]
 
 weird_shoes_urls = [
@@ -429,6 +473,7 @@ random_locations = [
     "Kingdom of Swadia",
     "Great Scarab Island",
     "Nightmare Zone",
+    "Ape Atoll",
 ]
 
 show_locations = [
@@ -461,10 +506,18 @@ bizarre_retailers = [
     "Sizzlers",
     "Roblox",
     "Auntie Annes",
+    "Booksamillion",
+    "Party City",
     "Dave and Busters",
     "Rainforest Cafe",
     "Margaritaville",
     "Lazer Quest",
     "Jagex",
     "Linux Foundation",
+]
+
+events = [
+  "family reunion",
+  "hoedown",
+  ""
 ]

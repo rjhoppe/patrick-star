@@ -374,6 +374,35 @@ class Idiot:
                 self.query = "is Fitzpatrick a family name?"
             case 76:
                 self.query = "if I were to wear two shoes on my hands and two shoes on my feet, what would you recommend as the size difference between the front paws and back ones? thanks"
+            case 77:
+                self.query = "awesome shoes! These are perfect for yardwork!"
+            case 78:
+                self.query = "got a riddle for ya: what has 3 legs in the morning, 3 legs in the afternoon, and 3 legs in the evening? Me when I'm wearing your shoes xD"
+            case 79:
+                self.query = "I would like to exchange footwear in a location of my choosing at time of your choice and in a currency of an agreed upon medium. Possible?"
+            case 80:
+                self.query = "english no good: I am endeavoring to discuss the process of commandeering a pair of your most exquisite footwear. How must I initiate a cordial discussion on such matters?"
+            case 81:
+                self.query = "does your store have a printer? I would like to stop by and use it."
+            case 82:
+                self.query = "war... war never changes"
+            case 83:
+                self.query = (
+                    "patrolling the Mojave almost makes you wish for a nuclear winter"
+                )
+            case 84:
+                self.query = "do you accept oversized novelty checks?"
+            case 85:
+                self.query = (
+                    "do you make clown shoes? if not, why? that is what I would do"
+                )
+            case 86:
+                newCustomer = Idiot()
+                newCustomer.gen_first_name()
+                newCustomer.gen_last_name()
+                self.query = f'has a guy named "{newCustomer.first_name} {newCustomer.last_name}" been asking you questions? DO NOT TRUST him. A right proper, swindler that one.'
+            case 87:
+                self.query = "my wife's boyfriend was interested in a pair of your shoes, any suggestions?"
         return self.query
 
 
