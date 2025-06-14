@@ -127,6 +127,9 @@ first_names = [
     "Dagoth Ur",
     "Ugluk,"
     "Lurtz",
+    "Skeeter",
+    "Goblin",
+    "Plobb",
 ]
 
 last_names = [
@@ -224,6 +227,9 @@ last_names = [
     "Jonesby",
     "the Unnamed",
     "the Cursed",
+    "the Unspeakable",
+    "the Unmentionable",
+    "Nads",
 ]
 
 time_measurements = [
@@ -516,8 +522,26 @@ bizarre_retailers = [
     "Linux Foundation",
 ]
 
+ancient_hawaiians = [
+  "The coconut that stands alone is the first to be picked.",
+  "Even the slowest sea turtle reaches the shore if it keeps paddling.",
+  "The best way to catch a fish is to be a fish.",
+  "When the wave knocks you down, the sand is there to catch you.",
+  "A surfboard left in the sun will crack, but one in the water will ride.",
+  "The gecko who listens learns where the bugs are.",
+  "You cant paddle out if you never leave the shore.",
+  "A tangled net catches no fish.",
+  "The loudest conch shell doesnt always call the biggest wave.",
+  "When the mango is ripe, it will fall.",
+  "Better to wipe out trying than to never catch a wave.",
+]
+
 events = [
   "family reunion",
   "hoedown",
+  "hula contest",
+  "first aid training",
+  "hog hunt",
+  "big kitchen, interior, and bath expo",
   ""
 ]

@@ -19,26 +19,51 @@ load_dotenv()
 
 
 class Cache:
+    """Handles caching of queries and names using diskcache."""
+
     def __init__(self):
+        """Initializes the Cache object and sets up the cache directory."""
         self.cache = dc.Cache("./cache")
 
     def close_conn(self):
+        """Closes the cache connection."""
         self.cache.close()
 
     def create_key(self, query_type: str, query: str):
-        key_data = {"query_type": query_type, "query": str(query)}
+        """Creates a unique cache key based on query type and query string.
+
+        Args:
+            query_type (str): The type of the query (e.g., 'query', 'first_name').
+            query (str): The query string or value to cache. This will be normalized (lowercased and stripped).
+
+        Returns:
+            str: A unique cache key.
+        """
+        normalized_query = query.lower().strip()
+        key_data = {"query_type": query_type, "query": str(normalized_query)}
         key_str = json.dumps(key_data, sort_keys=True)
         hashed = hashlib.sha256(key_str.encode()).hexdigest()
         return f"{query_type}:{hashed}"
 
     def add_key(self, key) -> None:
+        """Adds a key to the cache with a fixed expiration time (5 days)."""
         # 5 days
         time = 120 * 60 * 60
         self.cache.set(key, True, expire=time)
         self.close_conn()
 
     def check_if_key_exists(self, query_type: str, query: str) -> bool:
-        key = self.create_key(query_type, query)
+        """Checks if a key exists in the cache. Adds the key if it does not exist.
+
+        Args:
+            query_type (str): The type of the query.
+            query (str): The query string or value to check. This will be normalized (lowercased and stripped).
+
+        Returns:
+            bool: True if the key exists, False otherwise.
+        """
+        normalized_query = query.lower().strip()
+        key = self.create_key(query_type, normalized_query)
         try:
             with dc.Cache("./cache", timeout=5) as cache:
                 does_exist = cache.get(key, retry=False)
@@ -53,15 +78,20 @@ class Cache:
             return False
 
     def clean_cache(self):
+        """Expires old cache entries."""
         self.cache.expire()
 
     # method to flush the cache - useful for testing
     def clear_cache(self):
+        """Clears all entries from the cache. Useful for testing purposes."""
         self.cache.clear()
 
 
 class Idiot:
+    """Represents a randomly generated customer profile for submitting queries."""
+
     def __init__(self):
+        """Initializes the Idiot object with randomization flags and empty fields."""
         self.first_name = None
         self.last_name = None
         self.full_name = None
@@ -80,15 +110,19 @@ class Idiot:
             self.include_greeting = False
 
     def gen_first_name(self) -> str:
+        """Generates and sets a random first name from the list of first names."""
         self.first_name = random.choice(first_names)
 
     def gen_last_name(self) -> str:
+        """Generates and sets a random last name from the list of last names."""
         self.last_name = random.choice(last_names)
 
     def gen_full_name(self) -> str:
+        """Concatenates the first and last name to set the full name."""
         self.full_name = self.first_name + " " + self.last_name
 
     def gen_email(self) -> str:
+        """Generates and sets a random email address based on the first and last name."""
         first_stop = random.randint(2, len(self.first_name) - 1)
         first_part = self.first_name[2:first_stop]
         last_stop = random.randint(2, len(self.last_name) - 1)
@@ -122,6 +156,7 @@ class Idiot:
             )
 
     def gen_intro(self) -> str:
+        """Generates and sets a random introduction string, optionally including the name."""
         random_intro = random.randint(1, 12)
         if self.include_name:
             match random_intro:
@@ -180,9 +215,11 @@ class Idiot:
                     self.intro = "hello "
 
     def gen_random_query_num(self) -> str:
+        """Generates and sets a random query number for selecting a query template."""
         self.random_query = random.randint(1, 76)
 
     def gen_query(self) -> str:
+        """Generates and returns a random query string based on the selected query number."""
         match self.random_query:
             case 1:
                 self.query = "do you have any shoes in size 16? I can fit into a woman's size 19 if that helps"
@@ -403,10 +440,19 @@ class Idiot:
                 self.query = f'has a guy named "{newCustomer.first_name} {newCustomer.last_name}" been asking you questions? DO NOT TRUST him. A right proper, swindler that one.'
             case 87:
                 self.query = "my wife's boyfriend was interested in a pair of your shoes, any suggestions?"
+            case 88:
+                self.random_proverb = random.choice(ancient_hawaiians)
+                self.query = f'the ancient hawaiians always used to say "{self.random_proverb}" have a nice day'
         return self.query
 
 
 def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
+    """Submits an annoying message to the Shopify chat widget using Selenium automation.
+
+    Args:
+        query (str): The message/query to send.
+        PatrickStar (Idiot): The customer profile to use for the submission.
+    """
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
 
@@ -539,6 +585,12 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
 
 
 def ping_ntfy(name: str, msg: str) -> None:
+    """Sends a notification to ntfy with the provided name and message.
+
+    Args:
+        name (str): The name to include in the notification.
+        msg (str): The message content.
+    """
     logging.info("Pinging ntfy...")
     url = os.getenv("NTFY_URL")
     data = f"""patrick-star successfully run
@@ -554,6 +606,12 @@ def ping_ntfy(name: str, msg: str) -> None:
 
 
 def ping_discord(name: str, msg: str) -> None:
+    """Sends a notification to Discord with the provided name and message.
+
+    Args:
+        name (str): The name to include in the notification.
+        msg (str): The message content.
+    """
     logging.info("Pinging Discord...")
     webhook_url = os.getenv("WEBHOOK")
     msg = f"{name}: {msg}"
@@ -566,10 +624,14 @@ def ping_discord(name: str, msg: str) -> None:
 
 
 def time_to_annoy() -> None:
+    """Orchestrates the process of generating a random customer, query, and submitting it.
+
+    This function ensures that the generated query, first name, and last name are unique (not in cache),
+    then submits the message, and sends notifications via ntfy and Discord.
+    """
     DiskCache = Cache()
     PatrickStar = Idiot()
 
-    to_lower_rand = random.randint(1, 3)
     PatrickStar.gen_first_name()
     PatrickStar.gen_last_name()
     PatrickStar.gen_full_name()
@@ -579,34 +641,65 @@ def time_to_annoy() -> None:
     if PatrickStar.include_greeting:
         PatrickStar.gen_intro()
 
+    query_attempts = 0
     while True:
+        if PatrickStar.include_greeting:
+            PatrickStar.gen_intro()  # Regenerate intro for more variety
+
         query = PatrickStar.gen_query()
         if PatrickStar.intro:
             query = PatrickStar.intro + query
 
-        if to_lower_rand == 1:
-            query = query.lower()
+        # Always normalize query before checking cache
+        normalized_query = query.lower().strip()
 
-        if not DiskCache.check_if_key_exists(query_type="query", query=query):
+        if not DiskCache.check_if_key_exists(
+            query_type="query", query=normalized_query
+        ):
+            logging.info(
+                f"Unique query found after {query_attempts + 1} attempt(s): {normalized_query}"
+            )
             break
-
+        else:
+            logging.debug(
+                f"Query already in cache, retrying. Attempt: {query_attempts + 1}"
+            )
         PatrickStar.gen_random_query_num()
+        query_attempts += 1
 
+    first_name_attempts = 0
     while True:
+        normalized_first_name = PatrickStar.first_name.lower().strip()
         if not DiskCache.check_if_key_exists(
-            query_type="first_name", query=PatrickStar.first_name
+            query_type="first_name", query=normalized_first_name
         ):
+            logging.info(
+                f"Unique first name found after {first_name_attempts + 1} attempt(s): {normalized_first_name}"
+            )
             break
         else:
+            logging.debug(
+                f"First name already in cache, retrying. Attempt: {first_name_attempts + 1}"
+            )
             PatrickStar.gen_first_name()
+            first_name_attempts += 1
 
+    last_name_attempts = 0
     while True:
+        normalized_last_name = PatrickStar.last_name.lower().strip()
         if not DiskCache.check_if_key_exists(
-            query_type="last_name", query=PatrickStar.last_name
+            query_type="last_name", query=normalized_last_name
         ):
+            logging.info(
+                f"Unique last name found after {last_name_attempts + 1} attempt(s): {normalized_last_name}"
+            )
             break
         else:
+            logging.debug(
+                f"Last name already in cache, retrying. Attempt: {last_name_attempts + 1}"
+            )
             PatrickStar.gen_last_name()
+            last_name_attempts += 1
 
     PatrickStar.gen_full_name()
 
@@ -616,7 +709,7 @@ def time_to_annoy() -> None:
     ping_ntfy(PatrickStar.full_name, query)
     ping_discord(PatrickStar.full_name, query)
 
-    # DiskCache.clear_cache()
+    # DiskCache.clear_cache() # for testing only
     DiskCache.clean_cache()
 
 
