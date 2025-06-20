@@ -46,9 +46,9 @@ class Cache:
         return f"{query_type}:{hashed}"
 
     def add_key(self, key) -> None:
-        """Adds a key to the cache with a fixed expiration time (5 days)."""
+        """Adds a key to the cache with a fixed expiration time (15 days)."""
         # 5 days
-        time = 120 * 60 * 60
+        time = 15 * 24 * 60 * 60
         self.cache.set(key, True, expire=time)
         self.close_conn()
 
@@ -184,6 +184,14 @@ class Idiot:
                     self.intro = f"{self.full_name} - "
                 case 12:
                     self.intro = f"Hi {self.first_name} here "
+                case 13:
+                    self.intro = f"You sniveling worm. My name is {self.first_name}. Remember it."
+                case 14:
+                    old_name = self.first_name
+                    self.gen_first_name()
+                    self.intro = f"The names {old_name}, but you can call me {self.first_name} hehe."
+                case 15:
+                    self.intro = f"uhhh *gulps audibly* my n-name is - *nervously looks around* err, I am called {self.first_name}"
 
         else:
             match random_intro:
@@ -213,10 +221,16 @@ class Idiot:
                     self.intro = "hey "
                 case 12:
                     self.intro = "hello "
+                case 13:
+                    self.intro = "hallo "
+                case 14:
+                    self.intro = "evenin' guvnah "
+                case 15:
+                    self.intro = "uhhhhhh "
 
     def gen_random_query_num(self) -> str:
         """Generates and sets a random query number for selecting a query template."""
-        self.random_query = random.randint(1, 76)
+        self.random_query = random.randint(1, 89)
 
     def gen_query(self) -> str:
         """Generates and returns a random query string based on the selected query number."""
@@ -443,6 +457,12 @@ class Idiot:
             case 88:
                 self.random_proverb = random.choice(ancient_hawaiians)
                 self.query = f'the ancient hawaiians always used to say "{self.random_proverb}" have a nice day'
+            case 89:
+                self.query = "do you think this is funny? Is this a game to you? I don't find this funny. At all."
+            case 90:
+                self.query = "do you sell trimmed versions of your shoes?"
+            case 91:
+                self.query = "I MAY OR MAY NOT HAVE GOTTEN A CLEAR, TRANLUSCENT, GLUE-LIKE SUBSTANCE ALL OVR THE LACES AND THEN *ACCIDENTALLY* LET IT DRY IN THE SUN!! HELP"
         return self.query
 
 

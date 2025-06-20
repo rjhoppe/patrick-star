@@ -130,6 +130,23 @@ first_names = [
     "Skeeter",
     "Goblin",
     "Plobb",
+    "Sideshow",
+    "Princess",
+    "Memphis",
+    "Chicago",
+    "Armstrong",
+    "Guano",
+    "Mesmer",
+    "Gywndolin",
+    "Vendrick",
+    "Vordt",
+    "Iudex Gundyr",
+    "Yhorm",
+    "Aldrich",
+    "Oceiros",
+    "Crank",
+    "Orangutan",
+    "Napster",
 ]
 
 last_names = [
@@ -230,6 +247,12 @@ last_names = [
     "the Unspeakable",
     "the Unmentionable",
     "Nads",
+    "Pringles",
+    "Inc.",
+    "M.D.",
+    "Bussy",
+    "Sexhaver",
+    "Frenulum",
 ]
 
 time_measurements = [
@@ -248,6 +271,8 @@ time_measurements = [
     "Sidereal days",
     "dog years",
     "aeons",
+    "days after tomorrows",
+    "days after yesterdays"
 ]
 
 sticky_things = [
@@ -267,13 +292,13 @@ sticky_things = [
 weird_shoes_urls = [
     "https://www.amazon.com/Poulaines-Leather-Curved-Renaissance-Cosplay/dp/B0CSF1RWBQ/ref=asc_df_B0CSF1RWBQ/?tag=hyprod-20&linkCode=df0&hvadid=708144672471&hvpos=&hvnetw=g&hvrand=74891359273654179&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9009844&hvtargid=pla-2367630436234&psc=1&mcid=e2ecf3033b7c304294b7bc4802a3fbf0",
     "https://www.temu.com/kuiper/un9.html?subj=goods-prm-un&_bg_fs=1&_p_jump_id=1067&_x_vst_scene=adg&sku_id=17592364226151&goods_id=601099551744464&adg_ctx=a-32387edb~c-db9d2aa5~f-3ba963bb&_x_ads_sub_channel=shopping&_p_rfs=1&_x_ns_prz_type=-1&_x_ns_sku_id=17592364226151&_x_ns_gid=601099551744464&mrk_rec=1&_x_ads_channel=google&_x_gmc_account=647900107&_x_login_type=Google&_x_ads_account=1919904652&_x_ads_set=21513236537&_x_ads_id=165642994015&_x_ads_creative_id=707289116394&_x_ns_source=g&_x_ns_gclid=CjwKCAjwodC2BhAHEiwAE67hJE5Uep9rjXZglbJopxmF2GWRZwOrDU4TusZL2QHT_6Q4-QkzFlPPnBoCZOcQAvD_BwE&_x_ns_placement=&_x_ns_match_type=&_x_ns_ad_position=&_x_ns_product_id=17592364226151&_x_ns_target=&_x_ns_devicemodel=&_x_ns_wbraid=Cj4KCAjw_sq2BhBsEi4AV_CU9amks703Ej9zGJyhMUloBxMkWn11olZETwylByS6Bh6Ipla4NuKqqRSjGgJS5g&_x_ns_gbraid=0AAAAAo4mICEjYmZeGaaoYFmnVINyQ-wdp&_x_ns_targetid=pla-2330597633908&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJE5Uep9rjXZglbJopxmF2GWRZwOrDU4TusZL2QHT_6Q4-QkzFlPPnBoCZOcQAvD_BwE",
-    "https://walterdixxon.com/products/the-dorado-patent-leather-studded-pointed-toe-dress-shoes?currency=USD&variant=44876407013609&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=266b2c0aaede&tw_source=google&tw_adid=&tw_campaign=18134283587&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJJovNUFsjBADCe8dfpN4Ofs6ZobgluI8IA1tDdhUgklhI8DAJ5WBLBoCMokQAvD_BwE",
     "https://www.etsy.com/listing/1400637692/sapato-de-palhaco-banana?gpla=1&gao=1&&utm_source=google&utm_medium=cpc&utm_campaign=shopping_us_a-clothing-other&utm_custom1=_k_CjwKCAjwodC2BhAHEiwAE67hJJBL7yq-E1p7E6becW9nQpD2QlYsqnBuREp5XD_uMcaKsZVPv-f5xBoCG1wQAvD_BwE_k_&utm_content=go_21500568414_164860976149_707557561667_aud-2191767825281:pla-297616371983_c__1400637692_12768591&utm_custom2=21500568414&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJJBL7yq-E1p7E6becW9nQpD2QlYsqnBuREp5XD_uMcaKsZVPv-f5xBoCG1wQAvD_BwE",
     "https://queerintheworldshop.com/products/rainbow-snakeskin-wing-tip-dress-shoes?currency=USD&variant=43925961900252&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=d4b7c19d2d2e&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJMXkmp7y4P8zjbxi6RqWVpckWVzBlZKKdw43bvcqiOUiunVg0fXoIRoCr5EQAvD_BwE",
     "https://crocodilewear.com/products/cowboyluxe-embroidered-leather-dress-loafers?currency=USD&variant=40505682296886&utm_source=google&utm_medium=cpc&utm_campaign=Google%20Shopping&stkn=77d664eac709&utm_source=&utm_medium=&gad_source=1&gclid=CjwKCAjwodC2BhAHEiwAE67hJPA6JnGmW8jjCOwTJKDKT8RwwG2hnHe3U_DJUfGbuyy138B5TCT_DhoCCncQAvD_BwE",
     "https://www.etsy.com/listing/1401591437/handmade-cockney-footwear-two-tone-black?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=&ref=sr_gallery-2-2&etp=1&content_source=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437&logging_key=262ec40dba861ebe7a1d443feca0e950f55d9d04%3A1401591437",
     "https://www.amazon.com/dp/B009TQPAQA?ref=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&ref_=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&social_share=cm_sw_r_cso_cp_apan_dp_54P8YMVKKX1WZGZHXFJ3&previewDoh=1",
-    "https://www.etsy.com/listing/166146726/oversized-red-gnome-hat-extra-wide-bell?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=red+gnome+hat&ref=sr_gallery-1-4&pro=1&frs=1&sts=1&content_source=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726&organic_search_click=1&logging_key=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726"
+    "https://www.etsy.com/listing/166146726/oversized-red-gnome-hat-extra-wide-bell?ls=s&ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=red+gnome+hat&ref=sr_gallery-1-4&pro=1&frs=1&sts=1&content_source=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726&organic_search_click=1&logging_key=3e0512efa97d39af0dfcdd38557feba31b6c1d96%3A166146726",
+    "https://www.youtube.com/shorts/KXzDezbanV8",
 ]
 
 random_colors = [
@@ -543,5 +568,7 @@ events = [
   "first aid training",
   "hog hunt",
   "big kitchen, interior, and bath expo",
-  ""
+  "HR professionals networking event",
+  "lunch and learn",
+  "court ordered community service event",
 ]
