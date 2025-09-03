@@ -147,6 +147,10 @@ first_names = [
     "Crank",
     "Orangutan",
     "Napster",
+    "Grimore",
+    "Grimsby",
+    "Rowley",
+    "Meerkat",
 ]
 
 last_names = [
@@ -246,6 +250,8 @@ last_names = [
     "the Cursed",
     "the Unspeakable",
     "the Unmentionable",
+    "the Unknown",
+    "the Unforgiving",
     "Nads",
     "Pringles",
     "Inc.",
@@ -418,6 +424,7 @@ sports_teams = [
 weird_currencies = [
     "doubloons",
     "pieces of eight",
+    "OSRS bond memberships",
     "Bitcoin",
     "rai stones",
     "Dogecoin",

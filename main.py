@@ -230,7 +230,7 @@ class Idiot:
 
     def gen_random_query_num(self) -> str:
         """Generates and sets a random query number for selecting a query template."""
-        self.random_query = random.randint(1, 89)
+        self.random_query = random.randint(1, 105)
 
     def gen_query(self) -> str:
         """Generates and returns a random query string based on the selected query number."""
@@ -463,6 +463,38 @@ class Idiot:
                 self.query = "do you sell trimmed versions of your shoes?"
             case 91:
                 self.query = "I MAY OR MAY NOT HAVE GOTTEN A CLEAR, TRANLUSCENT, GLUE-LIKE SUBSTANCE ALL OVR THE LACES AND THEN *ACCIDENTALLY* LET IT DRY IN THE SUN!! HELP"
+            case 92:
+                self.query = "where is your section for free stuff? I was told there was free stuff. Like a giveaway. That is what I would do."
+            case 93:
+                self.query = (
+                    "let it be known: you have made a VERY powerful enemy today"
+                )
+            case 94:
+                self.query = "which shoe is for the left foot?"
+            case 95:
+                self.query = "do these shoes work on carpet?"
+            case 96:
+                self.query = "If I buy one shoe, does the other come free?"
+            case 97:
+                self.query = "will these make me taller than my boss?"
+            case 98:
+                self.query = "will my wife's boyfriend finally respect me in a pair of your shoes?"
+            case 99:
+                self.query = (
+                    "if I buy these shoes, will they take me to where I truly belong?"
+                )
+            case 100:
+                self.query = "HORNY"
+            case 101:
+                self.query = "do you have any shoes that can outrun my regrets?"
+            case 102:
+                self.query = "Hi, yes, I’d like to return these shoes. They keep trying to walk back to your store on their own at night. Yesterday, I woke up six blocks away with blistered feet and a voice in my head whispering ‘soon.’ I’d just prefer store credit."
+            case 103:
+                self.query = "your shoes gave me autism"
+            case 104:
+                self.query = "ingles no bueno - zapatos dar autismo grande - es problemo. Lo siento espanol no bueno"
+            case 105:
+                self.query = "help - I have become too attractive to other men when wearing a pair of your shoes. please advise"
         return self.query
 
 
