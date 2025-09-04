@@ -11,6 +11,7 @@ from discord_webhook import DiscordWebhook
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 from app_data import *
@@ -46,9 +47,9 @@ class Cache:
         return f"{query_type}:{hashed}"
 
     def add_key(self, key) -> None:
-        """Adds a key to the cache with a fixed expiration time (5 days)."""
+        """Adds a key to the cache with a fixed expiration time (15 days)."""
         # 5 days
-        time = 120 * 60 * 60
+        time = 15 * 24 * 60 * 60
         self.cache.set(key, True, expire=time)
         self.close_conn()
 
@@ -184,6 +185,14 @@ class Idiot:
                     self.intro = f"{self.full_name} - "
                 case 12:
                     self.intro = f"Hi {self.first_name} here "
+                case 13:
+                    self.intro = f"You sniveling worm. My name is {self.first_name}. Remember it."
+                case 14:
+                    old_name = self.first_name
+                    self.gen_first_name()
+                    self.intro = f"The names {old_name}, but you can call me {self.first_name} hehe."
+                case 15:
+                    self.intro = f"uhhh *gulps audibly* my n-name is - *nervously looks around* err, I am called {self.first_name}"
 
         else:
             match random_intro:
@@ -213,10 +222,16 @@ class Idiot:
                     self.intro = "hey "
                 case 12:
                     self.intro = "hello "
+                case 13:
+                    self.intro = "hallo "
+                case 14:
+                    self.intro = "evenin' guvnah "
+                case 15:
+                    self.intro = "uhhhhhh "
 
     def gen_random_query_num(self) -> str:
         """Generates and sets a random query number for selecting a query template."""
-        self.random_query = random.randint(1, 76)
+        self.random_query = random.randint(1, 105)
 
     def gen_query(self) -> str:
         """Generates and returns a random query string based on the selected query number."""
@@ -443,11 +458,49 @@ class Idiot:
             case 88:
                 self.random_proverb = random.choice(ancient_hawaiians)
                 self.query = f'the ancient hawaiians always used to say "{self.random_proverb}" have a nice day'
+            case 89:
+                self.query = "do you think this is funny? Is this a game to you? I don't find this funny. At all."
+            case 90:
+                self.query = "do you sell trimmed versions of your shoes?"
+            case 91:
+                self.query = "I MAY OR MAY NOT HAVE GOTTEN A CLEAR, TRANLUSCENT, GLUE-LIKE SUBSTANCE ALL OVR THE LACES AND THEN *ACCIDENTALLY* LET IT DRY IN THE SUN!! HELP"
+            case 92:
+                self.query = "where is your section for free stuff? I was told there was free stuff. Like a giveaway. That is what I would do."
+            case 93:
+                self.query = (
+                    "let it be known: you have made a VERY powerful enemy today"
+                )
+            case 94:
+                self.query = "which shoe is for the left foot?"
+            case 95:
+                self.query = "do these shoes work on carpet?"
+            case 96:
+                self.query = "If I buy one shoe, does the other come free?"
+            case 97:
+                self.query = "will these make me taller than my boss?"
+            case 98:
+                self.query = "will my wife's boyfriend finally respect me in a pair of your shoes?"
+            case 99:
+                self.query = (
+                    "if I buy these shoes, will they take me to where I truly belong?"
+                )
+            case 100:
+                self.query = "HORNY"
+            case 101:
+                self.query = "do you have any shoes that can outrun my regrets?"
+            case 102:
+                self.query = "Hi, yes, I’d like to return these shoes. They keep trying to walk back to your store on their own at night. Yesterday, I woke up six blocks away with blistered feet and a voice in my head whispering ‘soon.’ I’d just prefer store credit."
+            case 103:
+                self.query = "your shoes gave me autism"
+            case 104:
+                self.query = "ingles no bueno - zapatos dar autismo grande - es problemo. Lo siento espanol no bueno"
+            case 105:
+                self.query = "help - I have become too attractive to other men when wearing a pair of your shoes. please advise"
         return self.query
 
 
 def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
-    """Submits an annoying message to the Shopify chat widget using Selenium automation.
+    """Submits an annoying message on the contact us page using Selenium automation.
 
     Args:
         query (str): The message/query to send.
@@ -456,7 +509,7 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
 
-    # Disable these to test
+    # Comment these out to test
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
 
@@ -466,8 +519,10 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
 
     try:
         driver = webdriver.Chrome(options=chrome_options)
-        driver.get(os.getenv("URL"))
+        driver.get(os.getenv("NEW_URL"))
         time.sleep(6)
+
+        actions = ActionChains(driver)
 
         modal_element = driver.find_element(
             By.CSS_SELECTOR, "div[aria-label='POPUP Form']"
@@ -478,85 +533,23 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         x_btn.click()
         time.sleep(3)
 
-        chat_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const chatBtn = shadowRoot.querySelectorAll('[aria-label="Chat window"]')[0]
-            return chatBtn
-            """
-        )
-        chat_btn.click()
-        time.sleep(2)
+        name_input = driver.find_element(By.CSS_SELECTOR, "input[name='contact[name]']")
 
-        chat_textarea = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const textArea = shadowRoot.querySelector('textarea')
-            return textArea
-            """
+        email_input = driver.find_element(
+            By.CSS_SELECTOR, "input[name='contact[email]']"
         )
 
-        chat_textarea.click()
-        chat_textarea.clear()
-        time.sleep(1)
-        chat_textarea.send_keys(query)
-        time.sleep(1)
-        chat_submit_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button')
-            return submitBtn
-            """
+        message_text_area = driver.find_element(
+            By.CSS_SELECTOR, "textarea[name='contact[body]']"
         )
 
-        chat_submit_btn.click()
-        time.sleep(2)
+        submit_btn = driver.find_element(By.XPATH, "//button[text()='Send message']")
 
-        # Fill in the templated info below
-        first_name_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const firstName = inputs[0]
-            return firstName
-            """
-        )
-
-        first_name_input.click()
-        first_name_input.clear()
+        name_input.click()
+        name_input.clear()
         time.sleep(1)
-        first_name_input.send_keys(PatrickStar.first_name)
+        name_input.send_keys(PatrickStar.full_name)
         time.sleep(1)
-
-        last_name_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const lastName = inputs[1]
-            return lastName
-            """
-        )
-
-        last_name_input.click()
-        last_name_input.clear()
-        time.sleep(1)
-        last_name_input.send_keys(PatrickStar.last_name)
-        time.sleep(1)
-
-        email_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const email = inputs[2]
-            return email
-            """
-        )
 
         email_input.click()
         email_input.clear()
@@ -564,16 +557,15 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         email_input.send_keys(PatrickStar.email)
         time.sleep(1)
 
-        contact_submit_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button[type="submit"].hover-effect-button')
-            return submitBtn
-            """
-        )
+        message_text_area.click()
+        message_text_area.clear()
+        time.sleep(1)
+        message_text_area.send_keys(query)
+        time.sleep(1)
 
-        contact_submit_btn.click()
+        actions.move_to_element(submit_btn).perform()
+        time.sleep(1)
+        actions.click().perform()
         time.sleep(2)
 
         logging.info("Job complete")
