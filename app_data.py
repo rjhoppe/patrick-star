@@ -151,6 +151,9 @@ first_names = [
     "Grimsby",
     "Rowley",
     "Meerkat",
+    "Garbanzo",
+    "Jafar",
+    "Salazar",
 ]
 
 last_names = [
@@ -252,12 +255,18 @@ last_names = [
     "the Unmentionable",
     "the Unknown",
     "the Unforgiving",
+    "the Foul",
+    "the Unending",
+    "the Ethereal",
+    "the Voyeur",
     "Nads",
     "Pringles",
     "Inc.",
     "M.D.",
     "Bussy",
     "Sexhaver",
+    "Ballsterdale",
+    "McDuck",
     "Frenulum",
 ]
 

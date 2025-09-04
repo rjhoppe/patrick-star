@@ -11,6 +11,7 @@ from discord_webhook import DiscordWebhook
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 from app_data import *
@@ -499,7 +500,7 @@ class Idiot:
 
 
 def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
-    """Submits an annoying message to the Shopify chat widget using Selenium automation.
+    """Submits an annoying message on the contact us page using Selenium automation.
 
     Args:
         query (str): The message/query to send.
@@ -508,7 +509,7 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
     logging.basicConfig(level=logging.DEBUG)
     chrome_options = Options()
 
-    # Disable these to test
+    # Comment these out to test
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
 
@@ -518,8 +519,10 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
 
     try:
         driver = webdriver.Chrome(options=chrome_options)
-        driver.get(os.getenv("URL"))
+        driver.get(os.getenv("NEW_URL"))
         time.sleep(6)
+
+        actions = ActionChains(driver)
 
         modal_element = driver.find_element(
             By.CSS_SELECTOR, "div[aria-label='POPUP Form']"
@@ -530,85 +533,23 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         x_btn.click()
         time.sleep(3)
 
-        chat_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const chatBtn = shadowRoot.querySelectorAll('[aria-label="Chat window"]')[0]
-            return chatBtn
-            """
-        )
-        chat_btn.click()
-        time.sleep(2)
+        name_input = driver.find_element(By.CSS_SELECTOR, "input[name='contact[name]']")
 
-        chat_textarea = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const textArea = shadowRoot.querySelector('textarea')
-            return textArea
-            """
+        email_input = driver.find_element(
+            By.CSS_SELECTOR, "input[name='contact[email]']"
         )
 
-        chat_textarea.click()
-        chat_textarea.clear()
-        time.sleep(1)
-        chat_textarea.send_keys(query)
-        time.sleep(1)
-        chat_submit_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button')
-            return submitBtn
-            """
+        message_text_area = driver.find_element(
+            By.CSS_SELECTOR, "textarea[name='contact[body]']"
         )
 
-        chat_submit_btn.click()
-        time.sleep(2)
+        submit_btn = driver.find_element(By.XPATH, "//button[text()='Send message']")
 
-        # Fill in the templated info below
-        first_name_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const firstName = inputs[0]
-            return firstName
-            """
-        )
-
-        first_name_input.click()
-        first_name_input.clear()
+        name_input.click()
+        name_input.clear()
         time.sleep(1)
-        first_name_input.send_keys(PatrickStar.first_name)
+        name_input.send_keys(PatrickStar.full_name)
         time.sleep(1)
-
-        last_name_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const lastName = inputs[1]
-            return lastName
-            """
-        )
-
-        last_name_input.click()
-        last_name_input.clear()
-        time.sleep(1)
-        last_name_input.send_keys(PatrickStar.last_name)
-        time.sleep(1)
-
-        email_input = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const inputs = shadowRoot.querySelectorAll('input')
-            const email = inputs[2]
-            return email
-            """
-        )
 
         email_input.click()
         email_input.clear()
@@ -616,16 +557,15 @@ def submit_annyoing_msg(query: str, PatrickStar: Idiot) -> None:
         email_input.send_keys(PatrickStar.email)
         time.sleep(1)
 
-        contact_submit_btn = driver.execute_script(
-            """
-            const parent = document.getElementById('ShopifyChat')
-            const shadowRoot = parent.shadowRoot
-            const submitBtn = shadowRoot.querySelector('button[type="submit"].hover-effect-button')
-            return submitBtn
-            """
-        )
+        message_text_area.click()
+        message_text_area.clear()
+        time.sleep(1)
+        message_text_area.send_keys(query)
+        time.sleep(1)
 
-        contact_submit_btn.click()
+        actions.move_to_element(submit_btn).perform()
+        time.sleep(1)
+        actions.click().perform()
         time.sleep(2)
 
         logging.info("Job complete")
