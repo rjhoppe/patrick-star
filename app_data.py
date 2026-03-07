@@ -280,7 +280,7 @@ random_colors = [
     "tangerine",
     "periwinkle",
     "sarcoline",
-    "feldgrau",  # Yikes!
+    "feldgrau",
     "gamboge",
     "eburnean",
     "amaranth",
@@ -543,5 +543,4 @@ events = [
   "first aid training",
   "hog hunt",
   "big kitchen, interior, and bath expo",
-  ""
 ]

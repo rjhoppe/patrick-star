@@ -330,8 +330,6 @@ class Idiot:
                 self.query = (
                     "if i supplied the leather... could you make the shoes out of it..."
                 )
-            case 41:
-                self.query = "remember me fuckface?"
             case 42:
                 self.query = "is it possible to only buy 1 shoe?"
             case 43:
@@ -354,8 +352,6 @@ class Idiot:
                 self.query = "do you deliver on the Sabbath?"
             case 52:
                 self.query = "do you deliver on the day after the Sabbath?"
-            case 53:
-                self.query = "listen, I'm not saying its your shoes, but I have been getting SOME since I started wearing these around the funeral home"
             case 54:
                 self.query = "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm shoes :)"
             case 55:
@@ -369,8 +365,6 @@ class Idiot:
             case 58:
                 mens_size = random.randint(4, 18)
                 self.query = f"what size would you recommend for someone who only wears size {mens_size} Crocs?"
-            case 59:
-                self.query = "your shoes make my penis look small >=("
             case 60:
                 self.query = "can I get an extra large expedited return exchange on my order for the amount in full?"
             case 61:
@@ -413,8 +407,6 @@ class Idiot:
                 self.query = "if I were to wear two shoes on my hands and two shoes on my feet, what would you recommend as the size difference between the front paws and back ones? thanks"
             case 77:
                 self.query = "awesome shoes! These are perfect for yardwork!"
-            case 78:
-                self.query = "got a riddle for ya: what has 3 legs in the morning, 3 legs in the afternoon, and 3 legs in the evening? Me when I'm wearing your shoes xD"
             case 79:
                 self.query = "I would like to exchange footwear in a location of my choosing at time of your choice and in a currency of an agreed upon medium. Possible?"
             case 80:
@@ -438,8 +430,6 @@ class Idiot:
                 newCustomer.gen_first_name()
                 newCustomer.gen_last_name()
                 self.query = f'has a guy named "{newCustomer.first_name} {newCustomer.last_name}" been asking you questions? DO NOT TRUST him. A right proper, swindler that one.'
-            case 87:
-                self.query = "my wife's boyfriend was interested in a pair of your shoes, any suggestions?"
             case 88:
                 self.random_proverb = random.choice(ancient_hawaiians)
                 self.query = f'the ancient hawaiians always used to say "{self.random_proverb}" have a nice day'
